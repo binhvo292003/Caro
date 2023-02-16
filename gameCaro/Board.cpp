@@ -40,7 +40,8 @@ void Board::DrawBoard() {
 		for (int i = 0; i < _size * 4 + 1; i += 4) {
 
 			Common::GotoXY(2 + i, j);
-			cout << "║";
+			//cout << "║";
+			cout << "|";
 		}
 		Sleep(50);
 	}
@@ -48,7 +49,8 @@ void Board::DrawBoard() {
 	for (int j = 0; j < _size * 2 + 1; j += 2) {
 		for (int i = 0; i < _size * 4; i += 4) {
 			Common::GotoXY(3 + i, j);
-			cout << "═══";
+			//cout << "═══";
+			cout << "---";
 		}
 		Sleep(50);
 	}
@@ -56,7 +58,8 @@ void Board::DrawBoard() {
 	for (int j = 2; j < _size * 2; j += 2) {
 		for (int i = 0; i < _size * 4 - 4; i += 4) {
 			Common::GotoXY(6 + i, j);
-			cout << "╬";
+			//cout << "╬";
+			cout << "+";
 		}
 		Sleep(50);
 	}
@@ -64,46 +67,62 @@ void Board::DrawBoard() {
 	//Ve canh tren
 	for (int i = 0; i < _size * 4; i += 4) {
 		Common::GotoXY(6 + i, 0);
-		cout << "╦";
+		//cout << "╦";
+		//cout << "-";
+		cout << "+";
 		Sleep(20);
 	}
 
 	Common::GotoXY(_size * 4 + 2, 0);
-	cout << "╗";
+	//cout << "╗";
+	//cout << ".";
+	cout << "+";
 	Sleep(20);
 
 	//Ve canh ngoai phai
 	for (int i = 0; i < _size * 2; i += 2) {
 		Common::GotoXY(_size * 4 + 2, 2 + i);
-		cout << "╣";
+		//cout << "╣";
+		//cout << "|";
+		cout << "+";
 		Sleep(20);
 	}
 
 	Common::GotoXY(_size * 4 + 2, _size * 2);
-	cout << "╝";
+	//cout << "╝";
+	//cout << "*";
+	cout << "+";
 	Sleep(20);
 
 	//Ve canh duoi
 	for (int i = _size * 4 - 8; i >= 0; i -= 4) {
 		Common::GotoXY(6 + i, _size * 2);
-		cout << "╩";
+		//cout << "╩";
+		//cout << "-";
+		cout << "+";
 		Sleep(20);
 	}
 
 	Common::GotoXY(2, _size * 2);
-	cout << "╚";
+	//cout << "╚";
+	//cout << "*";
+	cout << "+";
 	Sleep(20);
 
 	//Ve canh ngoai trai
 
 	for (int i = _size * 2 - 2; i >= 0; i -= 2) {
 		Common::GotoXY(2, i);
-		cout << "╠";
+		//cout << "╠";
+		//cout << "|";
+		cout << "+";
 		Sleep(20);
 	}
 
 	Common::GotoXY(2, 0);
-	cout << "╔";
+	//cout << "╔";
+	//cout << ".";
+	cout << "+";
 	Sleep(20);
 
 }

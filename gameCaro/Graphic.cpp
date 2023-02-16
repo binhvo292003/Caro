@@ -80,39 +80,47 @@ void Graphic::DrawRectangle(const int& posX, const int& posY, const int& width, 
 	//Ve canh tren
 	for (int i = 1; i < realWidth; i++) {
 		Common::GotoXY(posX + i, posY);
-		cout << "═";
+		//cout << "═";
+		cout << "-";
 	}
 
 	//Ve canh ngoai phai
 	for (int i = 1; i < height; i++) {
 		Common::GotoXY(posX + realWidth, posY + i);
-		cout << "║";
+		//cout << "║";
+		cout << "|";
 	}
 
 
 	//Ve canh duoi
 	for (int i = 1; i < realWidth; i++) {
 		Common::GotoXY(posX + i, posY + height);
-		cout << "═";
+		//cout << "═";
+		cout << "-";
 	}
 
 	//Ve canh ngoai trai
 	for (int i = 1; i < height; i++) {
 		Common::GotoXY(posX, posY + i);
-		cout << "║";
+		//cout << "║";
+		cout << "|";
 	}
 
 	Common::GotoXY(posX, posY);
-	cout << "╔";
+	//cout << "╔";
+	cout << "+";
 
 	Common::GotoXY(posX + realWidth, posY);
-	cout << "╗";
+	//cout << "╗";
+	cout << "+";
 
 	Common::GotoXY(posX + realWidth, posY + height);
-	cout << "╝";
+	//cout << "╝";
+	cout << "+";
 
 	Common::GotoXY(posX, posY + height);
-	cout << "╚";
+	//cout << "╚";
+	cout << "+";
 }
 
 void Graphic::ContinueAscii() {
