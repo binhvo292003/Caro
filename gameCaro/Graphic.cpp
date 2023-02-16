@@ -30,8 +30,11 @@ void Graphic::HelpBox() {
 
 	//Common::ChangeFont(L"Consolas", 20, FW_BOLD);
 	Common::GotoXY(67, 3);
-	cout << "↑,←,↓,→ : For moving";
+	//cout << "↑,←,↓,→ : For moving";
+	cout << "UP,RIGHT, : For moving";
 	Common::GotoXY(67, 4);
+	cout << "DOWN,LEFT";
+	Common::GotoXY(67, 5);
 	cout << "W,A,S,D";
 	Common::GotoXY(67, 6);
 	cout << "Enter   : For choosing";
