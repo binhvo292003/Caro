@@ -46,7 +46,8 @@ void Graphic::HelpBox() {
 
 	Common::GotoXY(66, 2);
 	for (int i = 0; i < 29; i++) {
-		cout << "─";
+		//cout << "─";
+		cout << "-";
 	}
 
 }
