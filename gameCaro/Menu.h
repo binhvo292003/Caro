@@ -24,7 +24,7 @@ struct Menu {
 	void ProcessCounter();
 	void RenderMenu();
 	void NewGame();
-	void Continue();
+	void LoadGame();
 	void HighScores();
 	void Help();
 	void ResetMenu();

@@ -232,3 +232,19 @@ void Graphic::OWinGameAscii() {
 void Graphic::DrawEnterToContinue() {
 	
 }
+
+void Graphic::LoadGameBackground() {
+	system("cls");
+	DrawRectangle(0, 0, 48, 30);
+	DrawRectangle(1, 1, 47, 28);
+}
+
+void Graphic::PlayMode() {
+	Common::GotoXY(14, 7); cout << " _______  ___      _______  __   __    __   __  _______  ______   _______";
+	Common::GotoXY(14, 8); cout << "|       ||   |    |   _   ||  | |  |  |  |_|  ||       ||      | |       |";
+	Common::GotoXY(14, 9); cout << "|    _  ||   |    |  |_|  ||  |_|  |  |       ||   _   ||  _    ||    ___|";
+	Common::GotoXY(14, 10); cout << "|   |_| ||   |    |       ||       |  |       ||  | |  || | |   ||   |___";
+	Common::GotoXY(14, 11); cout << "|    ___||   |___ |       ||_     _|  |       ||  |_|  || |_|   ||    ___|";
+	Common::GotoXY(14, 12); cout << "|    |   |       ||   _   |  |   |    | ||_|| ||       ||       ||   |___";
+	Common::GotoXY(14, 13); cout << "|____|   |_______||__| |__|  |___|    |_|   |_||_______||______| |_______|";
+}

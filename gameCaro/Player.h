@@ -1,10 +1,16 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <iostream>
+
+using namespace std;
+
 struct Player {
 	int _scores;
 	int _currentMoves;
 	char _team;
+	
+	string name = "Unknown";
 
 	Player();
 	~Player();

@@ -51,6 +51,7 @@ void Menu::ProcessCounter() {
 			NewGame();
 			break;
 		case 2:
+			LoadGame();
 			break;
 		case 3:
 			break;
@@ -88,7 +89,7 @@ void Menu::RenderMenu() {
 
 		Common::GotoXY(42, 17);
 		Common::Color(_colorTitle[1], WHITE);
-		cout << "2. Continue";
+		cout << "2. Load Game";
 
 		Common::GotoXY(42, 18);
 		Common::Color(_colorTitle[2], WHITE);
@@ -126,15 +127,86 @@ void Menu::ResetMenu() {
 }
 
 void Menu::NewGame() {
+	system("cls");
+	Graphic::DrawRectangle(0, 0, 48, 30);
+	Graphic::PlayMode();
+
+	bool isPlayWithBot = false;	// false PvP true Play with Bot
+
+	int numberChoice = 2;
+	int* colorChoice = new int[numberChoice];
+	colorChoice[0] = GREEN;
+	for (int i = 1; i < numberChoice; i++) {
+		colorChoice[i] = BLACK;
+	}
+
+	int counter = 1;
+	bool flag = true;
+
+	while (flag) {
+		Common::GotoXY(42, 16);
+		Common::Color(colorChoice[0], WHITE);
+		Graphic::DrawRectangle(42, 18, 6, 2);
+		Common::GotoXY(45, 19); cout << "1 Player";
+
+		Common::GotoXY(42, 17);
+		Common::Color(colorChoice[1], WHITE);
+		Graphic::DrawRectangle(42, 22, 6, 2);
+		Common::GotoXY(45, 23); cout << "2 Player";
+
+		for (int i = 0; i < numberChoice; i++) {
+			colorChoice[i] = BLACK;
+		}
+
+		switch (Common::GetEvent()) {
+		case 1: case 2:
+			if (counter > 1) {
+				counter--;
+				break;
+			}
+			break;
+		case 3:	case 4:
+			if (counter < 2) {
+				counter++;
+				break;
+			}
+			break;
+		case 5:
+			switch (counter) {
+			case 1:
+				isPlayWithBot = true;
+				flag = false;
+				break;
+			case 2:
+				isPlayWithBot = false;
+				flag = false;
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+
+		colorChoice[counter - 1] = GREEN;
+	}
+	
 	Game* game;
+	
 	game = new Game();
 	game->Play();
 
 	ResetMenu();
 }
 
-void Menu::Continue() {
-
+void Menu::LoadGame() {
+	Graphic::LoadGameBackground();
+	while (true) {
+		if (Common::GetEvent() == 5) {
+			break;
+		}
+	}
 }
 
 void Menu::HighScores() {
