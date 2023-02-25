@@ -50,6 +50,13 @@ void Graphic::HelpBox() {
 		cout << "-";
 	}
 
+	Graphic::DrawRectangle(65, 22, 15, 2);
+	Common::GotoXY(66, 23);
+	cout << "L: Save Game";
+	Graphic::DrawRectangle(65, 26, 15, 2);
+	Common::GotoXY(66, 27);
+	cout << "Esc: Exit Game";
+
 }
 
 void Graphic::DrawAsciiX() {
@@ -247,4 +254,23 @@ void Graphic::PlayMode() {
 	Common::GotoXY(14, 11); cout << "|    ___||   |___ |       ||_     _|  |       ||  |_|  || |_|   ||    ___|";
 	Common::GotoXY(14, 12); cout << "|    |   |       ||   _   |  |   |    | ||_|| ||       ||       ||   |___";
 	Common::GotoXY(14, 13); cout << "|____|   |_______||__| |__|  |___|    |_|   |_||_______||______| |_______|";
+}
+
+void Graphic::SaveGameAscii() {
+	const char* saveGameAscii = R""""(          
+                     
+
+
+
+		 _______  _______  __   __  _______    _______  _______  __   __  _______ 
+		|       ||   _   ||  | |  ||       |  |       ||   _   ||  |_|  ||       |
+		|  _____||  |_|  ||  |_|  ||    ___|  |    ___||  |_|  ||       ||    ___|
+		| |_____ |       ||       ||   |___   |   | __ |       ||       ||   |___ 
+		|_____  ||       ||       ||    ___|  |   ||  ||       ||       ||    ___|
+		 _____| ||   _   | |     | |   |___   |   |_| ||   _   || ||_|| ||   |___ 
+		|_______||__| |__|  |___|  |_______|  |_______||__| |__||_|   |_||_______|
+                                                                               
+)"""";
+
+	cout << saveGameAscii;
 }

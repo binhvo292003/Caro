@@ -17,15 +17,17 @@ struct Game {
 	bool _isGameRunning;
 	bool _isEnd;
 	bool _turnX;
+	bool _isTwoPlayer;
 	int _pointRow;
 	int _pointColumn;
 	int _countX;
 	int _countO;
 	int _pointWinX;
 	int _pointWinO;
-
+	string filename;
 
 	Game();
+	Game(bool isTwoPlayer);
 	~Game();
 
 	void Play();
@@ -40,8 +42,10 @@ struct Game {
 	void DrawInfoX();
 	void DrawInfoO();
 	void ResetDataForNewGame();
-	void EndConsole();
 	void AskContinue();
+	void BotPlay();
+	void SaveGame();
+	void WinLoseResult();
 
 	bool IsEndGame();
 	bool IsEndHorizontal();

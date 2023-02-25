@@ -19,6 +19,7 @@ struct Graphic {
 	static void DrawEnterToContinue();
 	static void LoadGameBackground();
 	static void PlayMode();
+	static void SaveGameAscii();
 };
 
 #endif // !GRAPHIC

@@ -131,7 +131,7 @@ void Menu::NewGame() {
 	Graphic::DrawRectangle(0, 0, 48, 30);
 	Graphic::PlayMode();
 
-	bool isPlayWithBot = false;	// false PvP true Play with Bot
+	bool isTwoPlayer = false;	// false PvP true Play with Bot
 
 	int numberChoice = 2;
 	int* colorChoice = new int[numberChoice];
@@ -174,11 +174,11 @@ void Menu::NewGame() {
 		case 5:
 			switch (counter) {
 			case 1:
-				isPlayWithBot = true;
+				isTwoPlayer = false;
 				flag = false;
 				break;
 			case 2:
-				isPlayWithBot = false;
+				isTwoPlayer = true;
 				flag = false;
 				break;
 			default:
@@ -194,7 +194,7 @@ void Menu::NewGame() {
 	
 	Game* game;
 	
-	game = new Game();
+	game = new Game(isTwoPlayer);
 	game->Play();
 
 	ResetMenu();

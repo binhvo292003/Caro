@@ -7,6 +7,8 @@
 #include <string>
 #include <locale>
 #include <codecvt>
+#include <time.h>       
+
 
 #define BLACK 0
 #define BLUE 1
@@ -46,5 +48,8 @@ struct Common {
 	static void ChangeFont();
 	static void ShowConsoleCursor(const bool& showFlag);
 };
+
+int getRandomInt(int begin, int end);
+
 
 #endif // !COMMON

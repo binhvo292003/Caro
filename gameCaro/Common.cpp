@@ -27,6 +27,10 @@ int Common::GetEvent() {
 			return 4;
 		else if (ch == '\r' || ch == ' ')             //Enter
 			return 5;
+		else if (ch == 'L' || ch == 'l')			  //Load
+			return 6;
+		else if (ch == 27)							  //ESC
+			return 7;
 		else
 			return 0;
 	}
@@ -92,4 +96,10 @@ void Common::ShowConsoleCursor(const bool& showFlag){
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = showFlag; // set the cursor visibility
 	SetConsoleCursorInfo(out, &cursorInfo);
+}
+
+int getRandomInt(int begin, int end){
+	srand(time(NULL));
+	int n = rand() % (end - begin + 1) + begin;
+	return n;
 }

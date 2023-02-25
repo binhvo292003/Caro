@@ -15,6 +15,22 @@ Game::Game() {
 	GetXYatPoint(_pointRow, _pointColumn);
 }
 
+Game::Game(bool isTwoPlayer) {
+	_size = 15;
+	_pointRow = _size / 2;
+	_pointColumn = _size / 2;
+	_board = new Board(_size, 4, 1);
+	_isGameRunning = true;
+	_turnX = true;
+	_countX = 0;
+	_countO = 0;
+	_pointWinX = 0;
+	_pointWinO = 0;
+	_isEnd = false;
+	_isTwoPlayer = isTwoPlayer;
+	GetXYatPoint(_pointRow, _pointColumn);
+}
+
 Game::~Game() {
 	delete _board;
 }
@@ -28,27 +44,50 @@ void Game::Play() {
 		Common::GotoXY(_x, _y);
 		MoveUp();
 
+		bool isEsc = false;
+
 		while (_isGameRunning) {
-			switch (Common::GetEvent()) {
-			case 1: //UP
-				MoveUp();
-				break;
-			case 2: //LEFT
-				MoveLeft();
-				break;
-			case 3: //DOWN
-				MoveDown();
-				break;
-			case 4: //RIGHT
-				MoveRight();
-				break;
-			case 5:
+			if (_isTwoPlayer || _turnX) {
+
+				switch (Common::GetEvent()) {
+				case 1: //UP
+					MoveUp();
+					break;
+				case 2: //LEFT
+					MoveLeft();
+					break;
+				case 3: //DOWN
+					MoveDown();
+					break;
+				case 4: //RIGHT
+					MoveRight();
+					break;
+				case 5:
+					ProcessPoint();
+					break;
+				case 6:
+					SaveGame();
+					_isGameRunning = false;
+					isEsc = true;
+					break;
+				case 7:
+					_isGameRunning = false;
+					isEsc = true;
+					break;
+				}
+			}
+			else {
+				BotPlay();
 				ProcessPoint();
 			}
 		}
 
-		EndConsole();
-		
+		if (!isEsc) {
+			WinLoseResult();
+		}
+
+		AskContinue();
+		ResetDataForNewGame();
 	}
 }
 
@@ -150,7 +189,7 @@ void Game::ProcessPoint() {
 		_isGameRunning = false;
 	}
 
-	MoveDown();
+	//MoveDown();
 }
 
 void Game::PrintTempChoice(const bool& turnX) {
@@ -198,34 +237,6 @@ void Game::ResetDataForNewGame() {
 	_countX = 0;
 	_countO = 0;
 	GetXYatPoint(_pointRow, _pointColumn);
-}
-
-void Game::EndConsole() {
-	_isGameRunning = false;
-	system("cls");
-	Common::Color(BLACK, WHITE);
-	Common::ShowConsoleCursor(false);
-	
-	if (!_turnX) {
-		Graphic::XWinGameAscii();
-		_pointWinX++;
-	}
-	else {
-		Graphic::OWinGameAscii();
-		_pointWinO++;
-	}
-
-	Common::Color(YELLOW, WHITE);
-	Graphic::DrawRectangle(37, 18, 13, 2);
-	Common::GotoXY(39, 19); cout << "PRESS ENTER TO CONTINUE";
-
-	while (Common::GetEvent() != 5) {
-	}
-
-	AskContinue();
-	
-
-	ResetDataForNewGame();
 }
 
 bool Game::IsEndGame() {
@@ -382,7 +393,7 @@ void Game::AskContinue() {
 	system("cls");
 	Common::Color(BLACK, WHITE);
 	Graphic::ContinueAscii();
-	
+
 	int numberChoice = 2;
 	int* colorChoice = new int[numberChoice];
 	colorChoice[0] = GREEN;
@@ -409,7 +420,7 @@ void Game::AskContinue() {
 		}
 
 		switch (Common::GetEvent()) {
-		case 1: case 2:		
+		case 1: case 2:
 			if (counter > 1) {
 				counter--;
 				break;
@@ -446,3 +457,45 @@ void Game::AskContinue() {
 	colorChoice = nullptr;
 }
 
+void Game::BotPlay() {
+	int i, j;
+	do
+	{
+		i = getRandomInt(0, 14), j = getRandomInt(0, 14);
+	} while (_board->_arrPoint[i][j]._isChoosing);
+	_pointRow = i;
+	_pointColumn = j;
+	GetXYatPoint(_pointRow, _pointColumn);
+}
+
+void Game::SaveGame() {
+	system("cls");
+	Common::Color(BLACK, WHITE);
+	Graphic::SaveGameAscii();
+	while (true) {
+
+	}
+}
+
+void Game::WinLoseResult() {
+	_isGameRunning = false;
+	system("cls");
+	Common::Color(BLACK, WHITE);
+	Common::ShowConsoleCursor(false);
+
+	if (!_turnX) {
+		Graphic::XWinGameAscii();
+		_pointWinX++;
+	}
+	else {
+		Graphic::OWinGameAscii();
+		_pointWinO++;
+	}
+
+	Common::Color(YELLOW, WHITE);
+	Graphic::DrawRectangle(37, 18, 13, 2);
+	Common::GotoXY(39, 19); cout << "PRESS ENTER TO CONTINUE";
+
+	while (Common::GetEvent() != 5) {
+	}
+}
