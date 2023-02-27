@@ -50,11 +50,11 @@ void Graphic::HelpBox() {
 		cout << "-";
 	}
 
-	Graphic::DrawRectangle(65, 22, 15, 2);
-	Common::GotoXY(66, 23);
+	Graphic::DrawRectangle(65, 21, 15, 2);
+	Common::GotoXY(66, 22);
 	cout << "L: Save Game";
-	Graphic::DrawRectangle(65, 26, 15, 2);
-	Common::GotoXY(66, 27);
+	Graphic::DrawRectangle(65, 25, 15, 2);
+	Common::GotoXY(66, 26);
 	cout << "Esc: Exit Game";
 
 }

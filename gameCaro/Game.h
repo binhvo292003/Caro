@@ -25,6 +25,7 @@ struct Game {
 	int _pointWinX;
 	int _pointWinO;
 	string filename;
+	bool _pause;
 
 	Game();
 	Game(bool isTwoPlayer);
@@ -46,6 +47,7 @@ struct Game {
 	void BotPlay();
 	void SaveGame();
 	void WinLoseResult();
+	void DrawBoard();
 
 	bool IsEndGame();
 	bool IsEndHorizontal();

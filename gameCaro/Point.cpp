@@ -47,3 +47,7 @@ void Point::SetChoosing(const int& XO){
 void Point::ResetPoint() {
 	_isChoosing = 0;
 }
+
+int Point::ReturnChoosing() {
+	return _isChoosing;
+}

@@ -15,6 +15,7 @@ struct Point {
 	void SetY(const int&);
 	void SetChoosing(const int& XO);
 	void ResetPoint();
+	int ReturnChoosing();
 };
 
 #endif // !1
