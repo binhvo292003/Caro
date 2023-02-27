@@ -2,10 +2,13 @@
 #define GAME_H
 
 #include <iostream>
+#include <string>
+#include <fstream>
 
 #include "Common.h"
 #include "Board.h"
 #include "Graphic.h"
+
 
 using namespace std;
 
@@ -24,8 +27,8 @@ struct Game {
 	int _countO;
 	int _pointWinX;
 	int _pointWinO;
-	string filename;
 	bool _pause;
+	string filename;
 
 	Game();
 	Game(bool isTwoPlayer);

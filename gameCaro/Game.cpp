@@ -496,11 +496,73 @@ void Game::SaveGame() {
 	system("cls");
 	Common::Color(BLACK, WHITE);
 	Graphic::SaveGameAscii();
+	
+	int flag = 0;
+	do {
+		flag = 0;
+		Common::GotoXY(25, 15);
+		Common::ShowConsoleCursor(true);
+		cout << string(200, ' ');
+		//cout << "0000000000000000000000000000000000000000";
+		Common::GotoXY(25, 15);
+		cout << "Enter your file name (.txt file): ";
+		getline(cin, filename);
+		
+		//check space in file name
+
+		int length = filename.length();
+		for (int i = 0; i < length; i++) {
+			int c = filename[i];
+			if (isspace(c)) {
+				flag++;
+				break;
+			}
+		}
+	} while (flag);
+
+	system("cls");
+	Common::Color(BLACK, WHITE);
+	Graphic::SaveGameAscii();
+	Common::GotoXY(35, 15);
+	cout << "Save sucessfully";
+
+	//		check user input with .txt or not if not append ".txt"
+	if (!(filename.find(".txt") != string::npos)) {
+		filename.append(".txt");
+	}
+	Common::GotoXY(35, 15);
+	cout << string(100, ' ');
+	Common::GotoXY(35, 15);
+	cout << filename;
+	
+	//		write to file filename 
+	ofstream ofs;
+	ofs.open(filename);
+
+	ofs << _size << " _size" << endl;
+	ofs << _turnX << " _turnX" << endl;
+	ofs << _countX << " _countX" << endl;
+	ofs << _countO << " _countO" << endl;
+	ofs << _pointWinX << " _pointWinX" << endl;
+	ofs << _pointWinO << " _pointWinO" << endl;
+
+	for (int i = 0; i < _size; i++) {
+		for (int j = 0; j < _size; j++) {
+			ofs << _board->_arrPoint[i][j].ReturnChoosing() << " ";
+		}
+		ofs << endl;
+	}
+
+	ofs.close();
+
+
 	while (true) {
 		if (Common::GetEvent() == 5) {
 			break;
 		}
 	}
+
+
 	DrawBoard();
 }
 
