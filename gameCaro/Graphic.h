@@ -20,6 +20,8 @@ struct Graphic {
 	static void LoadGameBackground();
 	static void PlayMode();
 	static void SaveGameAscii();
+	static void Common4Corners(int x, int y);
+	static void Highlight4Corners(int x, int y);
 };
 
 #endif // !GRAPHIC

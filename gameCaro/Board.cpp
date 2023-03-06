@@ -15,7 +15,7 @@ Board::Board(const int& size, const int& x, const int& y) {
 	for (int i = 0; i < _size; i++) {
 		_arrPoint[i] = new Point[_size];
 	}
-
+	int count = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
 			_arrPoint[i][j].SetXY(_x + _stepX * i, _y + _stepY * j);

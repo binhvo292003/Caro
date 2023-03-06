@@ -274,3 +274,19 @@ void Graphic::SaveGameAscii() {
 
 	cout << saveGameAscii;
 }
+
+void Graphic::Common4Corners(int x, int y) {
+	Common::Color(BLACK, WHITE);
+	Common::GotoXY(x - 2, y - 1); cout << "+";
+	Common::GotoXY(x + 2, y - 1); cout << "+";
+	Common::GotoXY(x - 2, y + 1); cout << "+";
+	Common::GotoXY(x + 2, y + 1); cout << "+";
+}
+
+void Graphic::Highlight4Corners(int x, int y) {
+	Common::Color(BLACK, WHITE);
+	Common::GotoXY(x - 2, y - 1); cout << "╔";
+	Common::GotoXY(x + 2, y - 1); cout << "╗";
+	Common::GotoXY(x - 2, y + 1); cout << "╚";
+	Common::GotoXY(x + 2, y + 1); cout << "╝";
+}

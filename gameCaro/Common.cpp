@@ -99,7 +99,7 @@ void Common::ShowConsoleCursor(const bool& showFlag){
 }
 
 int getRandomInt(int begin, int end){
-	srand(time(NULL));
+	//srand(time(NULL));
 	int n = rand() % (end - begin + 1) + begin;
 	return n;
 }

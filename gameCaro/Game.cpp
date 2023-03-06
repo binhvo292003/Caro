@@ -14,7 +14,7 @@ Game::Game() {
 	_isEnd = false;
 	_pause = false;
 	GetXYatPoint(_pointRow, _pointColumn);
-	
+
 }
 
 Game::Game(bool isTwoPlayer) {
@@ -91,24 +91,39 @@ void Game::Play() {
 					_pause = true;
 					break;
 				}
-				Common::GotoXY(70, 28);
-				cout << _x << "/" << _y << endl;
-				Common::GotoXY(70, 29);
-				cout << _pointColumn << "/" << _pointRow << endl;
 			}
 			else {
 				BotPlay();
 				ProcessPoint();
-
 			}
+			Common::GotoXY(70, 28);
+			cout << _y << "/" << _x << endl;
+			Common::GotoXY(70, 29);
+			cout << _pointRow << "/" << _pointColumn << endl;
+			Common::GotoXY(70, 30);
+			cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();
 		}
 
 		WinLoseResult();
-		
+
 
 		AskContinue();
 		ResetDataForNewGame();
 	}
+}
+
+void Game::BotPlay() {
+	int i, j;
+	do
+	{
+		i = getRandomInt(0, _size - 1);
+		j = getRandomInt(0, _size - 1);
+	} while (_board->_arrPoint[i][j]._isChoosing);
+	Common::GotoXY(70, 10); cout << i;
+	Common::GotoXY(70, 11); cout << j;
+	_pointRow = i;
+	_pointColumn = j;
+	GetXYatPoint(_pointColumn, _pointRow);
 }
 
 void Game::GetXYatPoint(const int& row, const int& column) {
@@ -117,6 +132,7 @@ void Game::GetXYatPoint(const int& row, const int& column) {
 }
 
 void Game::MoveUp() {
+	Graphic::Common4Corners(_x, _y);
 	if (_y <= _board->_edgeTop) {
 		return;
 	}
@@ -133,6 +149,7 @@ void Game::MoveUp() {
 }
 
 void Game::MoveLeft() {
+	Graphic::Common4Corners(_x, _y);
 	if (_x <= _board->_edgeLeft) {
 		return;
 	}
@@ -149,6 +166,7 @@ void Game::MoveLeft() {
 }
 
 void Game::MoveDown() {
+	Graphic::Common4Corners(_x, _y);
 	if (_y >= _board->_edgeBottom) {
 		return;
 	}
@@ -165,6 +183,7 @@ void Game::MoveDown() {
 }
 
 void Game::MoveRight() {
+	Graphic::Common4Corners(_x, _y);
 	if (_x >= _board->_edgeRight) {
 		return;
 	}
@@ -202,7 +221,7 @@ void Game::ProcessPoint() {
 	}
 
 	//Info of Player(s)
-	DrawInfoOfGame();
+	//DrawInfoOfGame();
 
 	// Check end game
 	if (IsEndGame()) {
@@ -226,9 +245,7 @@ void Game::PrintTempChoice(const bool& turnX) {
 
 		return;
 	}
-
-	Common::ShowConsoleCursor(true);
-
+	Graphic::Highlight4Corners(_x, _y);
 }
 
 void Game::DrawInfoX() {
@@ -478,25 +495,11 @@ void Game::AskContinue() {
 	colorChoice = nullptr;
 }
 
-void Game::BotPlay() {
-	int i, j;
-	do
-	{
-		i = getRandomInt(0, 14), j = getRandomInt(0, 14);
-	} while (_board->_arrPoint[i][j]._isChoosing);
-	_pointRow = i;
-	_pointColumn = j;
-	GetXYatPoint(_pointRow, _pointColumn);
-}
-
 void Game::SaveGame() {
-	
-
-	
 	system("cls");
 	Common::Color(BLACK, WHITE);
 	Graphic::SaveGameAscii();
-	
+
 	int flag = 0;
 	do {
 		flag = 0;
@@ -507,9 +510,8 @@ void Game::SaveGame() {
 		Common::GotoXY(25, 15);
 		cout << "Enter your file name (.txt file): ";
 		getline(cin, filename);
-		
-		//check space in file name
 
+		//check space in file name
 		int length = filename.length();
 		for (int i = 0; i < length; i++) {
 			int c = filename[i];
@@ -534,7 +536,7 @@ void Game::SaveGame() {
 	cout << string(100, ' ');
 	Common::GotoXY(35, 15);
 	cout << filename;
-	
+
 	//		write to file filename 
 	ofstream ofs;
 	ofs.open(filename);
@@ -548,7 +550,7 @@ void Game::SaveGame() {
 
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
-			ofs << _board->_arrPoint[i][j].ReturnChoosing() << " ";
+			ofs << _board->_arrPoint[j][i].ReturnChoosing() << " ";
 		}
 		ofs << endl;
 	}
@@ -590,24 +592,27 @@ void Game::WinLoseResult() {
 }
 
 void Game::DrawBoard() {
+
+	int count = 0;
 	system("cls");
 	_board->DrawBoard();
-	for (int i = 0; i < this->_size; i++) {
-		for (int j = 0; j < this->_size; j++) {
+	for (int i = 0; i < _size; i++) {
+		for (int j = 0; j < _size; j++) {
 			this->GetXYatPoint(i, j);
 			Common::GotoXY(_x, _y);
 			if (_board->_arrPoint[j][i].ReturnChoosing() == 1) {		//x 
 				Common::Color(RED, WHITE);
 				cout << "X ";
 			}
-			else if (_board->_arrPoint[i][j].ReturnChoosing() == 2) {
+			else if (_board->_arrPoint[j][i].ReturnChoosing() == 2) {
 				Common::Color(BLUE, WHITE);
 				cout << "O ";
 			}
+			//cout << count++;
 		}
 	}
-	_pointColumn = _size/2;
-	_pointRow = _size/2;
+	_pointColumn = _size / 2;
+	_pointRow = _size / 2;
 	GetXYatPoint(_pointRow, _pointColumn);
 	DrawInfoOfGame();
 }
