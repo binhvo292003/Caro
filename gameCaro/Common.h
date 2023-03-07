@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#pragma comment(lib, "Winmm.lib")
+
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -8,7 +10,14 @@
 #include <locale>
 #include <codecvt>
 #include <time.h>       
+#include <vector>
 
+#define WIN_SOUND 0
+#define X_MOVE_SOUND 1
+#define O_MOVE_SOUND 2
+#define	ENTER_SOUND 3
+#define BACKGROUND_SOUND 4
+#define EFFECT_SOUND 5
 
 #define BLACK 0
 #define BLUE 1
@@ -47,6 +56,7 @@ struct Common {
 	static void ResizeConsole(const int& width, const int& height);
 	static void ChangeFont();
 	static void ShowConsoleCursor(const bool& showFlag);
+	static void playSound(int i);
 };
 
 int getRandomInt(int begin, int end);

@@ -204,6 +204,7 @@ void Game::ProcessPoint() {
 	}
 
 	if (_turnX) {
+		Common::playSound(X_MOVE_SOUND);
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 1);
 		Common::Color(RED, WHITE);
 		Common::GotoXY(_x, _y);
@@ -212,6 +213,7 @@ void Game::ProcessPoint() {
 		_turnX = false;
 	}
 	else {
+		Common::playSound(O_MOVE_SOUND);
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 2);
 		Common::Color(BLUE, WHITE);
 		Common::GotoXY(_x, _y);
@@ -278,7 +280,11 @@ void Game::ResetDataForNewGame() {
 }
 
 bool Game::IsEndGame() {
-	return IsEndHorizontal() || IsEndVertical() || IsEndPrimeDiag() || IsEndSecondDiag();
+	return IsEndHorizontal() || 
+		IsEndVertical() || 
+		IsEndPrimeDiag() || 
+		IsEndSecondDiag() || 
+		(_size * _size == _countO + _countX);
 }
 
 bool Game::IsEndHorizontal() {
@@ -574,15 +580,19 @@ void Game::WinLoseResult() {
 	Common::Color(BLACK, WHITE);
 	Common::ShowConsoleCursor(false);
 
-	if (!_turnX) {
-		Graphic::XWinGameAscii();
-		_pointWinX++;
+	if (_size * _size == _countO + _countX) {
+		Graphic::DrawGameAscii();
 	}
 	else {
-		Graphic::OWinGameAscii();
-		_pointWinO++;
+		if (!_turnX) {
+			Graphic::XWinGameAscii();
+			_pointWinX++;
+		}
+		else {
+			Graphic::OWinGameAscii();
+			_pointWinO++;
+		}
 	}
-
 	Common::Color(YELLOW, WHITE);
 	Graphic::DrawRectangle(37, 18, 13, 2);
 	Common::GotoXY(39, 19); cout << "PRESS ENTER TO CONTINUE";

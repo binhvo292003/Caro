@@ -16,6 +16,7 @@ struct Graphic {
 	static void ContinueAscii();
 	static void XWinGameAscii();
 	static void OWinGameAscii();
+	static void DrawGameAscii();
 	static void DrawEnterToContinue();
 	static void LoadGameBackground();
 	static void PlayMode();

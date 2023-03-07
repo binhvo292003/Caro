@@ -21,31 +21,37 @@ Menu::~Menu() {
 
 void Menu::ProcessCounter() {
 	switch (Common::GetEvent()) {
+		
 	case 1:		// UP
 		if (_counter > 1) {
+			Common::playSound(EFFECT_SOUND);
 			_counter--;
 			break;
 		}
 		break;
 	case 2:		// LEFT
 		if (_counter > 1) {
+			Common::playSound(EFFECT_SOUND);
 			_counter--;
 			break;
 		}
 		break;
 	case 3:		// DOWN
 		if (_counter < 5) {
+			Common::playSound(EFFECT_SOUND);
 			_counter++;
 			break;
 		}
 		break;
 	case 4:		// RIGHT
 		if (_counter < 5) {
+			Common::playSound(EFFECT_SOUND);
 			_counter++;
 			break;
 		}
 		break;
 	case 5:
+		Common::playSound(ENTER_SOUND);
 		switch (_counter) {
 		case 1:
 			NewGame();

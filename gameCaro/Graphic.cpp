@@ -236,6 +236,29 @@ void Graphic::OWinGameAscii() {
 	cout << OWin;
 }
 
+void Graphic::DrawGameAscii() {
+	const char* OWin = R""""(
+
+
+
+
+
+
+
+
+				 ______    ______     _______   _     _ 
+				|      |  |    _ |   |   _   | | | _ | |
+				|  _    | |   | ||   |  |_|  | | || || |
+				| | |   | |   |_||_  |       | |       |
+				| |_|   | |    __  | |       | |       |
+				|       | |   |  | | |   _   | |   _   |
+				|______|  |___|  |_| |__| |__| |__| |__|
+
+
+)"""";
+	cout << OWin;
+}
+
 void Graphic::DrawEnterToContinue() {
 	
 }

@@ -103,3 +103,10 @@ int getRandomInt(int begin, int end){
 	int n = rand() % (end - begin + 1) + begin;
 	return n;
 }
+
+void Common::playSound(int i)
+{
+	static vector<const wchar_t*> soundFile{ L"sounds\\win.wav", L"sounds\\X_Move.wav",
+		L"sounds\\O_Move.wav", L"sounds\\enter.wav", L"sounds\\background.wav",  L"sounds\\effect.wav" };
+	PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
+}
