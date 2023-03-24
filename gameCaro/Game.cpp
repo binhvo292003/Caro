@@ -132,6 +132,7 @@ void Game::GetXYatPoint(const int& row, const int& column) {
 }
 
 void Game::MoveUp() {
+	Common::playSound(EFFECT_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_y <= _board->_edgeTop) {
 		return;
@@ -146,9 +147,11 @@ void Game::MoveUp() {
 
 	Common::GotoXY(_x, _y);
 	PrintTempChoice(_turnX);
+
 }
 
 void Game::MoveLeft() {
+	Common::playSound(EFFECT_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_x <= _board->_edgeLeft) {
 		return;
@@ -166,6 +169,7 @@ void Game::MoveLeft() {
 }
 
 void Game::MoveDown() {
+	Common::playSound(EFFECT_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_y >= _board->_edgeBottom) {
 		return;
@@ -183,6 +187,7 @@ void Game::MoveDown() {
 }
 
 void Game::MoveRight() {
+	Common::playSound(EFFECT_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_x >= _board->_edgeRight) {
 		return;

@@ -1,6 +1,8 @@
 #include "Menu.h"
 
 Menu::Menu() {
+	_playBackground = true;
+	_effectSound = 0;
 	SetUp();
 
 	_numberTitle = 5;
@@ -11,7 +13,9 @@ Menu::Menu() {
 	}
 
 	_counter = 1;
+	_countSound = 1;
 	_flag = true;
+
 }
 
 Menu::~Menu() {
@@ -20,38 +24,51 @@ Menu::~Menu() {
 }
 
 void Menu::ProcessCounter() {
+	if (!_effectSound) {
+		if (!_countSound) {
+			Common::playBackground(_playBackground);
+			_countSound++;
+		}
+	}
+	else {
+		if (!_countSound) {
+			Common::playBackground(_playBackground);
+			_countSound++;
+		}
+	}
+
+
 	switch (Common::GetEvent()) {
-		
 	case 1:		// UP
 		if (_counter > 1) {
-			Common::playSound(EFFECT_SOUND);
+			Common::playSound(EFFECT_SOUND, _effectSound);
 			_counter--;
 			break;
 		}
 		break;
 	case 2:		// LEFT
 		if (_counter > 1) {
-			Common::playSound(EFFECT_SOUND);
+			Common::playSound(EFFECT_SOUND, _effectSound);
 			_counter--;
 			break;
 		}
 		break;
 	case 3:		// DOWN
 		if (_counter < 5) {
-			Common::playSound(EFFECT_SOUND);
+			Common::playSound(EFFECT_SOUND, _effectSound);
 			_counter++;
 			break;
 		}
 		break;
 	case 4:		// RIGHT
 		if (_counter < 5) {
-			Common::playSound(EFFECT_SOUND);
+			Common::playSound(EFFECT_SOUND, _effectSound);
 			_counter++;
 			break;
 		}
 		break;
 	case 5:
-		Common::playSound(ENTER_SOUND);
+		Common::playSound(ENTER_SOUND, _effectSound);
 		switch (_counter) {
 		case 1:
 			NewGame();
@@ -71,9 +88,24 @@ void Menu::ProcessCounter() {
 			break;
 		}
 		break;
+	case 8:	
+		if (_playBackground) {
+			_playBackground = 0;
+			_effectSound = 1;
+			_countSound = 0;
+		}
+		else {
+			_playBackground = 1;
+			_effectSound = 0;
+			_countSound = 0;
+		}
+		break;
 	default:
 		break;
 	}
+
+	Common::GotoXY(0, 0); cout << _playBackground;
+	Common::GotoXY(1, 0); cout << _countSound;
 }
 
 void Menu::SetUp() {
@@ -85,6 +117,7 @@ void Menu::SetUp() {
 	Common::ShowConsoleCursor(false);
 	system("color 70");
 	Graphic::DrawTitle();
+	Common::playBackground(_playBackground);
 }
 
 void Menu::RenderMenu() {

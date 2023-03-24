@@ -16,8 +16,7 @@
 #define X_MOVE_SOUND 1
 #define O_MOVE_SOUND 2
 #define	ENTER_SOUND 3
-#define BACKGROUND_SOUND 4
-#define EFFECT_SOUND 5
+#define EFFECT_SOUND 4
 
 #define BLACK 0
 #define BLUE 1
@@ -57,6 +56,8 @@ struct Common {
 	static void ChangeFont();
 	static void ShowConsoleCursor(const bool& showFlag);
 	static void playSound(int i);
+	static void playSound(int i, bool flag);
+	static void playBackground(bool flag);
 };
 
 int getRandomInt(int begin, int end);

@@ -2,7 +2,7 @@
 
 int Common::GetEvent() {
 	int ch = _getch();
-	if (ch == 0 || ch == 224){
+	if (ch == 0 || ch == 224) {
 		switch (_getch()) {
 		case 72:	//UP
 			return 1;
@@ -19,7 +19,7 @@ int Common::GetEvent() {
 	else {
 		if (ch == 'W' || ch == 'w')
 			return 1;
-		else if (ch == 'A' || ch == 'a') 
+		else if (ch == 'A' || ch == 'a')
 			return 2;
 		else if (ch == 'S' || ch == 's')
 			return 3;
@@ -31,6 +31,8 @@ int Common::GetEvent() {
 			return 6;
 		else if (ch == 27)							  //ESC
 			return 7;
+		else if (ch == 'M' || ch == 'm')			  //M
+			return 8;
 		else
 			return 0;
 	}
@@ -88,7 +90,7 @@ void Common::ChangeFont() {
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 }
 
-void Common::ShowConsoleCursor(const bool& showFlag){
+void Common::ShowConsoleCursor(const bool& showFlag) {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	CONSOLE_CURSOR_INFO     cursorInfo;
@@ -98,15 +100,35 @@ void Common::ShowConsoleCursor(const bool& showFlag){
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-int getRandomInt(int begin, int end){
+int getRandomInt(int begin, int end) {
 	//srand(time(NULL));
 	int n = rand() % (end - begin + 1) + begin;
 	return n;
 }
 
+void Common::playSound(int i, bool flag)
+{
+	if (flag) {
+		static vector<const wchar_t*> soundFile{ L"sounds\\win.wav", L"sounds\\X_Move.wav",
+			L"sounds\\O_Move.wav", L"sounds\\enter.wav",  L"sounds\\effect.wav" };
+		PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
+	}
+}
+
 void Common::playSound(int i)
 {
 	static vector<const wchar_t*> soundFile{ L"sounds\\win.wav", L"sounds\\X_Move.wav",
-		L"sounds\\O_Move.wav", L"sounds\\enter.wav", L"sounds\\background.wav",  L"sounds\\effect.wav" };
+		L"sounds\\O_Move.wav", L"sounds\\enter.wav",  L"sounds\\effect.wav" };
 	PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
+
+}
+
+void Common::playBackground(bool flag)
+{
+	if (flag) {
+		PlaySound(L"sounds\\background.wav", NULL, SND_FILENAME | SND_ASYNC);
+	}
+	else {
+		PlaySound(NULL, NULL, SND_ASYNC);
+	}
 }

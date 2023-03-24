@@ -5,6 +5,7 @@
 using namespace std;
 
 int main() {
+	//sndPlaySound();
 	Menu menu;
 	menu.RenderMenu();
 

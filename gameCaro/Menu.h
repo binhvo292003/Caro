@@ -15,6 +15,9 @@ struct Menu {
 	int _counter;
 	bool _flag;
 	int _numberTitle;
+	bool _playBackground;
+	int _effectSound;
+	int _countSound;
 	//Game _game;
 
 	Menu();
