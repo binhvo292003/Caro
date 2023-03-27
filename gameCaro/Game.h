@@ -32,6 +32,7 @@ struct Game {
 
 	Game();
 	Game(bool isTwoPlayer);
+	Game(string txtFile);
 	~Game();
 
 	void Play();
@@ -49,6 +50,7 @@ struct Game {
 	void AskContinue();
 	void BotPlay();
 	void SaveGame();
+	void LoadGame();
 	void WinLoseResult();
 	void DrawBoard();
 

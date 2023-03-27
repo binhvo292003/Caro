@@ -24,9 +24,9 @@ void Graphic::DrawTitle() {
 void Graphic::HelpBox() {
 	Common::Color(BLACK, WHITE);
 	DrawRectangle(65, 0, 15, 9);
-	
-	Common::GotoXY(76 , 1);
-	cout  << "HELP BOX";
+
+	Common::GotoXY(76, 1);
+	cout << "HELP BOX";
 
 	//Common::ChangeFont(L"Consolas", 20, FW_BOLD);
 	Common::GotoXY(67, 3);
@@ -260,19 +260,35 @@ void Graphic::DrawGameAscii() {
 }
 
 void Graphic::DrawEnterToContinue() {
-	
+
 }
 
 void Graphic::LoadGameBackground() {
 	system("cls");
+	const char* loadGameAscii = R""""(          
+
+
+
+
+                     
+              ___      _______  _______  ______     _______  _______  __   __  _______ 
+             |   |    |       ||   _   ||      |   |       ||   _   ||  |_|  ||       |
+             |   |    |   _   ||  |_|  ||  _    |  |    ___||  |_|  ||       ||    ___|
+             |   |    |  | |  ||       || | |   |  |   | __ |       ||       ||   |___ 
+             |   |___ |  |_|  ||       || |_|   |  |   ||  ||       ||       ||    ___|
+             |       ||       ||   _   ||       |  |   |_| ||   _   || ||_|| ||   |___ 
+             |_______||_______||__| |__||______|   |_______||__| |__||_|   |_||_______|
+
+                                                                               
+)"""";
+	cout << loadGameAscii;
 	DrawRectangle(0, 0, 48, 30);
-	DrawRectangle(1, 1, 47, 28);
 }
 
 void Graphic::PlayMode() {
-	Common::GotoXY(14, 7); cout << " _______  ___      _______  __   __    __   __  _______  ______   _______";
-	Common::GotoXY(14, 8); cout << "|       ||   |    |   _   ||  | |  |  |  |_|  ||       ||      | |       |";
-	Common::GotoXY(14, 9); cout << "|    _  ||   |    |  |_|  ||  |_|  |  |       ||   _   ||  _    ||    ___|";
+	Common::GotoXY(14, 7);  cout << " _______  ___      _______  __   __    __   __  _______  ______   _______";
+	Common::GotoXY(14, 8);  cout << "|       ||   |    |   _   ||  | |  |  |  |_|  ||       ||      | |       |";
+	Common::GotoXY(14, 9);  cout << "|    _  ||   |    |  |_|  ||  |_|  |  |       ||   _   ||  _    ||    ___|";
 	Common::GotoXY(14, 10); cout << "|   |_| ||   |    |       ||       |  |       ||  | |  || | |   ||   |___";
 	Common::GotoXY(14, 11); cout << "|    ___||   |___ |       ||_     _|  |       ||  |_|  || |_|   ||    ___|";
 	Common::GotoXY(14, 12); cout << "|    |   |       ||   _   |  |   |    | ||_|| ||       ||       ||   |___";
@@ -312,4 +328,92 @@ void Graphic::Highlight4Corners(int x, int y) {
 	Common::GotoXY(x + 2, y - 1); cout << "╗";
 	Common::GotoXY(x - 2, y + 1); cout << "╚";
 	Common::GotoXY(x + 2, y + 1); cout << "╝";
+}
+
+void Graphic::Normal4Corners(int x, int y) {
+	Common::Color(BLACK, WHITE);
+	Common::GotoXY(x - 2, y - 1); cout << "+";
+	Common::GotoXY(x + 2, y - 1); cout << "+";
+	Common::GotoXY(x - 2, y + 1); cout << "+";
+	Common::GotoXY(x + 2, y + 1); cout << "+";
+}
+
+void Graphic::About() {
+	system("cls");
+	const char* about = R""""(
+                             _____          _____         _____            _____    
+                         ___|\    \     ___|\    \    ___|\    \      ____|\    \   
+                        /    /\    \   /    /\    \  |    |\    \    /     /\    \  
+                       |    |  |    | |    |  |    | |    | |    |  /     /  \    \ 
+                       |    |  |____| |    |__|    | |    |/____/  |     |    |    |
+                       |    |   ____  |    .--.    | |    |\    \  |     |    |    |
+                       |    |  |    | |    |  |    | |    | |    | |\     \  /    /|
+                       |\ ___\/    /| |____|  |____| |____| |____| | \_____\/____/ |
+                       | |   /____/ | |    |  |    | |    | |    |  \ |    ||    | /
+                        \|___|    | / |____|  |____| |____| |____|   \|____||____|/ 
+                             |____|/                                      
+                                                                ███ ███ ███ ███ ███ ███ ███
+                                                                █ █ █   █ █  █  █   █    █
+                                                                ███ █   █ █  █  ██  █    █
+                                                                █   █   █ █  █  █   █    █
+                                                                █   █   ███ ██  ███ ███  █                                                                    
+)"""";
+	cout << about;
+	Common::GotoXY(0, 12);
+	Common::Color(BLACK, WHITE);
+	const char* infor = R""""(
+	                              Thành viên:
+                           Võ Quốc Bình            - 21127233
+                           Hồ Đăng Phúc            - 22127492
+                           Vũ Thái Thiện           - 22127399
+                           Hồ Trương Viết Long     - 22127241
+		
+                                  Giáo viên hướng dẫn:
+                           Trương Toàn Thịnh
+)"""";
+	cout << infor;
+	Common::GotoXY(38, 28);
+}
+
+void Graphic::Help() {
+	system("cls");
+	const char* about = R""""(
+                             _____          _____         _____            _____    
+                         ___|\    \     ___|\    \    ___|\    \      ____|\    \   
+                        /    /\    \   /    /\    \  |    |\    \    /     /\    \  
+                       |    |  |    | |    |  |    | |    | |    |  /     /  \    \ 
+                       |    |  |____| |    |__|    | |    |/____/  |     |    |    |
+                       |    |   ____  |    .--.    | |    |\    \  |     |    |    |
+                       |    |  |    | |    |  |    | |    | |    | |\     \  /    /|
+                       |\ ___\/    /| |____|  |____| |____| |____| | \_____\/____/ |
+                       | |   /____/ | |    |  |    | |    | |    |  \ |    ||    | /
+                        \|___|    | / |____|  |____| |____| |____|   \|____||____|/ 
+                             |____|/                                      
+                                                                ███ ███ ███ ███ ███ ███ ███
+                                                                █ █ █   █ █  █  █   █    █
+                                                                ███ █   █ █  █  ██  █    █
+                                                                █   █   █ █  █  █   █    █
+                                                                █   █   ███ ██  ███ ███  █                                                                    
+)"""";
+	cout << about;
+	Common::GotoXY(0, 12);
+	Common::Color(BLACK, WHITE);
+	const char* infor = R""""(
+	                             
+	               HOW TO PLAY
+
+                 ↑,←,↓,→          : For moving
+                 W,A,S,D
+
+                 Enter            : For choosing
+
+                 L                : Save Game
+
+                 M                : To mute/unmute sound background
+ 
+                 Esc              : Exit Game 
+
+)"""";
+	cout << infor;
+	Common::GotoXY(38, 28);
 }

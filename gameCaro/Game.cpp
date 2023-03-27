@@ -34,13 +34,103 @@ Game::Game(bool isTwoPlayer) {
 	GetXYatPoint(_pointRow, _pointColumn);
 }
 
+Game::Game(string txtFile) {
+	fstream fi;
+	fi.open(txtFile);
+	if (!fi)
+	{
+		_size = 15;
+		_pointRow = _size / 2;
+		_pointColumn = _size / 2;
+		_board = new Board(_size, 4, 1);
+		_isGameRunning = true;
+		_turnX = true;
+		_countX = 0;
+		_countO = 0;
+		_pointWinX = 0;
+		_pointWinO = 0;
+		_isEnd = false;
+		_pause = false;
+		GetXYatPoint(_pointRow, _pointColumn);
+	}
+	else
+	{
+		string temp;
+		while (!fi.eof())
+		{
+			getline(fi, temp, ' ');
+			_size = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_turnX = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_countX = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_countO = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_pointWinX = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_pointWinO = stoi(temp);
+			getline(fi, temp);
+
+			getline(fi, temp, ' ');
+			_isTwoPlayer = stoi(temp);
+			getline(fi, temp);
+
+			int tmpInt;
+
+			_board = new Board(_size, 4, 1);
+			for (int i = 0; i < _size; i++) {
+				for (int j = 0; j < _size; j++) {
+					
+					if (j == _size - 1) {
+						getline(fi, temp);
+						tmpInt = stoi(temp);
+						//cout << tmpInt << " ";
+						if (tmpInt != 0) {
+							this->_board->_arrPoint[j][i].SetChoosing(tmpInt);
+						}
+						continue;
+					}
+					getline(fi, temp, ' ');
+					tmpInt = stoi(temp);
+					//cout << tmpInt << " ";
+					if (tmpInt != 0) {
+						this->_board->_arrPoint[j][i].SetChoosing(tmpInt);
+					}
+				}
+				cout << endl;
+			}
+			
+			//system("pause");
+			_pointRow = _size / 2;
+			_pointColumn = _size / 2;
+			_isGameRunning = true;
+			_isEnd = false;
+			_pause = false;
+			GetXYatPoint(_pointRow, _pointColumn);
+			getline(fi, temp);
+		}
+	}
+	fi.close();
+}
+
 Game::~Game() {
 	delete _board;
 }
 
 void Game::Play() {
 	while (!_isEnd) {
-		_board->DrawBoard();
+		DrawBoard();
 		DrawInfoOfGame();
 
 		Common::ShowConsoleCursor(true);
@@ -96,12 +186,13 @@ void Game::Play() {
 				BotPlay();
 				ProcessPoint();
 			}
-			Common::GotoXY(70, 28);
+			DrawInfoOfGame();
+			/*Common::GotoXY(70, 28);
 			cout << _y << "/" << _x << endl;
 			Common::GotoXY(70, 29);
 			cout << _pointRow << "/" << _pointColumn << endl;
 			Common::GotoXY(70, 30);
-			cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();
+			cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();*/
 		}
 
 		WinLoseResult();
@@ -119,8 +210,8 @@ void Game::BotPlay() {
 		i = getRandomInt(0, _size - 1);
 		j = getRandomInt(0, _size - 1);
 	} while (_board->_arrPoint[i][j]._isChoosing);
-	Common::GotoXY(70, 10); cout << i;
-	Common::GotoXY(70, 11); cout << j;
+	//Common::GotoXY(70, 10); cout << i;
+	//Common::GotoXY(70, 11); cout << j;
 	_pointRow = i;
 	_pointColumn = j;
 	GetXYatPoint(_pointColumn, _pointRow);
@@ -145,7 +236,6 @@ void Game::MoveUp() {
 	_pointRow--;
 	_y -= _board->_stepY;
 
-	Common::GotoXY(_x, _y);
 	PrintTempChoice(_turnX);
 
 }
@@ -226,6 +316,7 @@ void Game::ProcessPoint() {
 		_countO++;
 		_turnX = true;
 	}
+	Graphic::Normal4Corners(_x, _y);
 
 	//Info of Player(s)
 	//DrawInfoOfGame();
@@ -239,9 +330,10 @@ void Game::ProcessPoint() {
 }
 
 void Game::PrintTempChoice(const bool& turnX) {
+	Graphic::Highlight4Corners(_x, _y);
 	if (_board->CheckPointAvailable(_pointRow, _pointColumn)) {
 		Common::ShowConsoleCursor(false);
-
+		Common::GotoXY(_x, _y);
 		if (turnX) {
 			Common::Color(RED, WHITE);
 			cout << "x ";
@@ -252,7 +344,7 @@ void Game::PrintTempChoice(const bool& turnX) {
 
 		return;
 	}
-	Graphic::Highlight4Corners(_x, _y);
+	//Graphic::Highlight4Corners(_x, _y);
 }
 
 void Game::DrawInfoX() {
@@ -285,10 +377,10 @@ void Game::ResetDataForNewGame() {
 }
 
 bool Game::IsEndGame() {
-	return IsEndHorizontal() || 
-		IsEndVertical() || 
-		IsEndPrimeDiag() || 
-		IsEndSecondDiag() || 
+	return IsEndHorizontal() ||
+		IsEndVertical() ||
+		IsEndPrimeDiag() ||
+		IsEndSecondDiag() ||
 		(_size * _size == _countO + _countX);
 }
 
@@ -517,7 +609,6 @@ void Game::SaveGame() {
 		Common::GotoXY(25, 15);
 		Common::ShowConsoleCursor(true);
 		cout << string(200, ' ');
-		//cout << "0000000000000000000000000000000000000000";
 		Common::GotoXY(25, 15);
 		cout << "Enter your file name (.txt file): ";
 		getline(cin, filename);
@@ -533,24 +624,52 @@ void Game::SaveGame() {
 		}
 	} while (flag);
 
+
+
+	//		check user input with .txt or not if not append ".txt"
+	if (!(filename.find(".txt") != string::npos)) {
+		filename.append(".txt");
+	}
+	
 	system("cls");
 	Common::Color(BLACK, WHITE);
 	Graphic::SaveGameAscii();
 	Common::GotoXY(35, 15);
 	cout << "Save sucessfully";
 
-	//		check user input with .txt or not if not append ".txt"
-	if (!(filename.find(".txt") != string::npos)) {
-		filename.append(".txt");
+	string path = "data\\" + filename;
+	ifstream fi;
+	ofstream fo;
+
+	int tmpInt;
+	string tmp;
+	fi.open("load.txt");
+	if (!fi)
+	{
+		cout << "cannot open file" << endl;
 	}
-	Common::GotoXY(35, 15);
-	cout << string(100, ' ');
-	Common::GotoXY(35, 15);
-	cout << filename;
+	else
+	{
+		while (!fi.eof()) {
+			getline(fi, tmp);
+			if (tmp.compare(path) == 0) {
+				tmpInt = 1;
+			}
+		}
+
+		if (tmpInt == 0) {
+			fo.open("load.txt", ios::app);
+			fo << path << endl;
+			fo.close();
+		}
+	}
+	fi.close();
+
 
 	//		write to file filename 
+
 	ofstream ofs;
-	ofs.open(filename);
+	ofs.open(path);
 
 	ofs << _size << " _size" << endl;
 	ofs << _turnX << " _turnX" << endl;
@@ -558,6 +677,7 @@ void Game::SaveGame() {
 	ofs << _countO << " _countO" << endl;
 	ofs << _pointWinX << " _pointWinX" << endl;
 	ofs << _pointWinO << " _pointWinO" << endl;
+	ofs << _isTwoPlayer << " _isTwoPlayer" << endl;
 
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
@@ -607,7 +727,6 @@ void Game::WinLoseResult() {
 }
 
 void Game::DrawBoard() {
-
 	int count = 0;
 	system("cls");
 	_board->DrawBoard();
@@ -631,3 +750,4 @@ void Game::DrawBoard() {
 	GetXYatPoint(_pointRow, _pointColumn);
 	DrawInfoOfGame();
 }
+

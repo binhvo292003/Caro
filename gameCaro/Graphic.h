@@ -2,6 +2,8 @@
 #define GRAPHIC_H
 
 #include "Common.h"
+#pragma execution_character_set("utf-8")
+
 
 struct Graphic {
 	static void DrawTitle();
@@ -23,6 +25,9 @@ struct Graphic {
 	static void SaveGameAscii();
 	static void Common4Corners(int x, int y);
 	static void Highlight4Corners(int x, int y);
+	static void Normal4Corners(int x, int y);
+	static void About();
+	static void Help();
 };
 
 #endif // !GRAPHIC

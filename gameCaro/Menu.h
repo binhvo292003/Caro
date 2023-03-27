@@ -18,6 +18,7 @@ struct Menu {
 	bool _playBackground;
 	int _effectSound;
 	int _countSound;
+	vector<string> listLoad;
 	//Game _game;
 
 	Menu();
@@ -28,9 +29,10 @@ struct Menu {
 	void RenderMenu();
 	void NewGame();
 	void LoadGame();
-	void HighScores();
+	void About();
 	void Help();
 	void ResetMenu();
+	void changeFile(vector<string>& fileName, int& file);
 };
 
 

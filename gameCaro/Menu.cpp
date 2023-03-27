@@ -77,8 +77,10 @@ void Menu::ProcessCounter() {
 			LoadGame();
 			break;
 		case 3:
+			Help();
 			break;
 		case 4:
+			About();
 			break;
 		case 5:
 			system("cls");
@@ -103,9 +105,6 @@ void Menu::ProcessCounter() {
 	default:
 		break;
 	}
-
-	Common::GotoXY(0, 0); cout << _playBackground;
-	Common::GotoXY(1, 0); cout << _countSound;
 }
 
 void Menu::SetUp() {
@@ -132,11 +131,11 @@ void Menu::RenderMenu() {
 
 		Common::GotoXY(42, 18);
 		Common::Color(_colorTitle[2], WHITE);
-		cout << "3. High Scores";
+		cout << "3. Help";
 
 		Common::GotoXY(42, 19);
 		Common::Color(_colorTitle[3], WHITE);
-		cout << "4. Help";
+		cout << "4. About";
 
 		Common::GotoXY(42, 20);
 		Common::Color(_colorTitle[4], WHITE);
@@ -240,18 +239,145 @@ void Menu::NewGame() {
 }
 
 void Menu::LoadGame() {
-	Graphic::LoadGameBackground();
-	while (true) {
-		if (Common::GetEvent() == 5) {
-			break;
+	system("cls");
+	vector<string> fileName;
+
+	ifstream fi;
+	fi.open("load.txt");
+	if (!fi)
+	{
+		cout << "Cannot open file List Load" << endl;
+	}
+	else
+	{
+		string temp;
+		while (!fi.eof())
+		{
+			getline(fi, temp);
+			fileName.push_back(temp);
 		}
 	}
-}
+	fi.close();
+	if (!fileName.size())
+	{
+		Common::GotoXY(42, 15);
+		cout << "No game files were found!";
+		Sleep(3000);
+		return;
+	}
+	int file = 0;
+	changeFile(fileName, file);
 
-void Menu::HighScores() {
+	int j = 20;
+	int sz;
 
+	if (fileName.size() < 8)
+	{
+		sz = fileName.size();
+	}
+	else
+	{
+		sz = 8;
+	}
+
+	bool chosen = 0;
+	while (!chosen)
+	{
+		int key = Common::GetEvent();
+		if (key == 5)
+		{
+			Game* g;
+			g = new Game(fileName[file]);
+			g->Play();
+			chosen = 1;
+		}
+		else if (key == 1 || key == 2)
+		{
+			if (file == 0)
+			{
+				file = sz - 1;
+				changeFile(fileName, file);
+				Common::playSound(2);
+			}
+			else
+			{
+				file--;
+				changeFile(fileName, file);
+				Common::playSound(2);
+			}
+		}
+		else if (key == 3 || key == 4)
+		{
+			if (file == sz - 1)
+			{
+				file = 0;
+				changeFile(fileName, file);
+				Common::playSound(2);
+			}
+			else
+			{
+				file++;
+				changeFile(fileName, file);
+				Common::playSound(2);
+			}
+		}
+		else if (key == 1)
+		{
+			chosen = 1;
+		}
+		else
+		{
+			Common::playSound(4);
+		}
+	}
+
+	ResetMenu();
 }
 
 void Menu::Help() {
+	Graphic::Help();
+	system("pause");
+	ResetMenu();
+}
 
+void Menu::About() {
+	Graphic::About();
+	system("pause");
+	ResetMenu();
+}
+
+
+
+void Menu::changeFile(vector<string>& fileName, int& file)
+{
+	system("cls");
+	Graphic::LoadGameBackground();
+
+	int j = 15;
+	int sz;
+
+	if (fileName.size() < 8)
+	{
+		sz = fileName.size();
+	}
+	else
+	{
+		sz = 8;
+	}
+
+	for (int i = 0; i < sz; i++)
+	{
+		Common::GotoXY(42, j);
+		j++;
+		if (i == file)
+		{
+			Common::Color(RED, WHITE);
+			cout << fileName[i];
+			Common::Color(BLACK, WHITE);
+		}
+		else
+		{
+			cout << fileName[i];
+		}
+	}
 }
