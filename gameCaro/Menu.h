@@ -11,6 +11,10 @@
 using namespace std;
 
 struct Menu {
+	int* _colorIcon;
+	int* _colorSquare;
+	int _numberIcon;
+
 	int* _colorTitle;
 	int _counter;
 	bool _flag;
@@ -29,8 +33,10 @@ struct Menu {
 	void RenderMenu();
 	void NewGame();
 	void LoadGame();
+	void Setting();
 	void About();
 	void Help();
+	void Exit();
 	void ResetMenu();
 	void changeFile(vector<string>& fileName, int& file);
 };

@@ -95,7 +95,7 @@ Game::Game(string txtFile) {
 					if (j == _size - 1) {
 						getline(fi, temp);
 						tmpInt = stoi(temp);
-						//cout << tmpInt << " ";
+						//std::cout << tmpInt << " ";
 						if (tmpInt != 0) {
 							this->_board->_arrPoint[j][i].SetChoosing(tmpInt);
 						}
@@ -103,12 +103,12 @@ Game::Game(string txtFile) {
 					}
 					getline(fi, temp, ' ');
 					tmpInt = stoi(temp);
-					//cout << tmpInt << " ";
+					//std::cout << tmpInt << " ";
 					if (tmpInt != 0) {
 						this->_board->_arrPoint[j][i].SetChoosing(tmpInt);
 					}
 				}
-				cout << endl;
+				std::cout << endl;
 			}
 			
 			//system("pause");
@@ -143,30 +143,30 @@ void Game::Play() {
 				case 1: //UP
 					MoveUp();
 					Common::GotoXY(70, 28);
-					cout << "        ";
+					std::cout << "        ";
 					Common::GotoXY(70, 29);
-					cout << "        ";
+					std::cout << "        ";
 					break;
 				case 2: //LEFT
 					MoveLeft();
 					Common::GotoXY(70, 28);
-					cout << "        ";
+					std::cout << "        ";
 					Common::GotoXY(70, 29);
-					cout << "        ";
+					std::cout << "        ";
 					break;
 				case 3: //DOWN
 					MoveDown();
 					Common::GotoXY(70, 28);
-					cout << "        ";
+					std::cout << "        ";
 					Common::GotoXY(70, 29);
-					cout << "        ";
+					std::cout << "        ";
 					break;
 				case 4: //RIGHT
 					MoveRight();
 					Common::GotoXY(70, 28);
-					cout << "        ";
+					std::cout << "        ";
 					Common::GotoXY(70, 29);
-					cout << "        ";
+					std::cout << "        ";
 					break;
 				case 5:
 					ProcessPoint();
@@ -188,11 +188,11 @@ void Game::Play() {
 			}
 			DrawInfoOfGame();
 			/*Common::GotoXY(70, 28);
-			cout << _y << "/" << _x << endl;
+			std::cout << _y << "/" << _x << endl;
 			Common::GotoXY(70, 29);
-			cout << _pointRow << "/" << _pointColumn << endl;
+			std::cout << _pointRow << "/" << _pointColumn << endl;
 			Common::GotoXY(70, 30);
-			cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();*/
+			std::cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();*/
 		}
 
 		WinLoseResult();
@@ -210,8 +210,8 @@ void Game::BotPlay() {
 		i = getRandomInt(0, _size - 1);
 		j = getRandomInt(0, _size - 1);
 	} while (_board->_arrPoint[i][j]._isChoosing);
-	//Common::GotoXY(70, 10); cout << i;
-	//Common::GotoXY(70, 11); cout << j;
+	//Common::GotoXY(70, 10); std::cout << i;
+	//Common::GotoXY(70, 11); std::cout << j;
 	_pointRow = i;
 	_pointColumn = j;
 	GetXYatPoint(_pointColumn, _pointRow);
@@ -230,7 +230,7 @@ void Game::MoveUp() {
 	}
 	if (_board->CheckPointAvailable(_pointRow, _pointColumn)) {
 		Common::GotoXY(_x, _y);
-		cout << "  ";
+		std::cout << "  ";
 	}
 
 	_pointRow--;
@@ -248,7 +248,7 @@ void Game::MoveLeft() {
 	}
 	if (_board->CheckPointAvailable(_pointRow, _pointColumn)) {
 		Common::GotoXY(_x, _y);
-		cout << "  ";
+		std::cout << "  ";
 	}
 
 	_pointColumn--;
@@ -266,7 +266,7 @@ void Game::MoveDown() {
 	}
 	if (_board->CheckPointAvailable(_pointRow, _pointColumn)) {
 		Common::GotoXY(_x, _y);
-		cout << "  ";
+		std::cout << "  ";
 	}
 
 	_pointRow++;
@@ -284,7 +284,7 @@ void Game::MoveRight() {
 	}
 	if (_board->CheckPointAvailable(_pointRow, _pointColumn)) {
 		Common::GotoXY(_x, _y);
-		cout << "  ";
+		std::cout << "  ";
 	}
 	_pointColumn++;
 	_x += _board->_stepX;
@@ -303,7 +303,7 @@ void Game::ProcessPoint() {
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 1);
 		Common::Color(RED, WHITE);
 		Common::GotoXY(_x, _y);
-		cout << "X ";
+		std::cout << "X ";
 		_countX++;
 		_turnX = false;
 	}
@@ -312,7 +312,7 @@ void Game::ProcessPoint() {
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 2);
 		Common::Color(BLUE, WHITE);
 		Common::GotoXY(_x, _y);
-		cout << "O ";
+		std::cout << "O ";
 		_countO++;
 		_turnX = true;
 	}
@@ -324,9 +324,10 @@ void Game::ProcessPoint() {
 	// Check end game
 	if (IsEndGame()) {
 		_isGameRunning = false;
+		PrintWinPos();
 	}
 
-	//MoveDown();
+	MoveDown();
 }
 
 void Game::PrintTempChoice(const bool& turnX) {
@@ -336,11 +337,11 @@ void Game::PrintTempChoice(const bool& turnX) {
 		Common::GotoXY(_x, _y);
 		if (turnX) {
 			Common::Color(RED, WHITE);
-			cout << "x ";
+			std::cout << "x ";
 			return;
 		}
 		Common::Color(BLUE, WHITE);
-		cout << "o ";
+		std::cout << "o ";
 
 		return;
 	}
@@ -349,16 +350,16 @@ void Game::PrintTempChoice(const bool& turnX) {
 
 void Game::DrawInfoX() {
 	Graphic::DrawRectangle(65, 10, 15, 10);
-	Common::GotoXY(68, 19); cout << "Moves: " << _countX;
-	Common::GotoXY(85, 19); cout << "Wins: " << _pointWinX;
+	Common::GotoXY(68, 19); std::cout << "Moves: " << _countX;
+	Common::GotoXY(85, 19); std::cout << "Wins: " << _pointWinX;
 	Common::Color(RED, WHITE);
 	Graphic::DrawAsciiX();
 }
 
 void Game::DrawInfoO() {
 	Graphic::DrawRectangle(65, 10, 15, 10);
-	Common::GotoXY(68, 19); cout << "Moves: " << _countO;
-	Common::GotoXY(85, 19); cout << "Wins: " << _pointWinO;
+	Common::GotoXY(68, 19); std::cout << "Moves: " << _countO;
+	Common::GotoXY(85, 19); std::cout << "Wins: " << _pointWinO;
 	Common::Color(BLUE, WHITE);
 	Graphic::DrawAsciiO();
 }
@@ -413,6 +414,26 @@ bool Game::IsEndHorizontal() {
 	}
 
 	if (right + left >= 5) {
+		int count = 0;
+		for (int i = _pointColumn; i >= 0; i--) {
+			if (XO == _board->CheckContain(_pointRow, i)) {
+				winPos[count] = _board->_arrPoint[i][_pointRow];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
+		for (int i = _pointColumn + 1; i < _size; i++) {
+			if (XO == _board->CheckContain(_pointRow, i)) {
+				winPos[count] = _board->_arrPoint[i][_pointRow];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
 		return true;
 	}
 	return false;
@@ -447,6 +468,27 @@ bool Game::IsEndVertical() {
 	}
 
 	if (bottom + top >= 5) {
+		int count = 0;
+		for (int i = _pointRow; i >= 0; i--) {
+			if (XO == _board->CheckContain(i, _pointColumn)) {
+				winPos[count] = _board->_arrPoint[_pointColumn][i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
+		for (int i = _pointRow + 1; i < _size; i++) {
+			if (XO == _board->CheckContain(i, _pointColumn)) {
+				winPos[count] = _board->_arrPoint[_pointColumn][i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
 		return true;
 	}
 	return false;
@@ -481,6 +523,28 @@ bool Game::IsEndPrimeDiag() {
 	}
 
 	if (bottomDiag + topDiag >= 5) {
+
+		int count = 0;
+		for (int i = 0; i <= _pointRow; i++) {
+			if (XO == _board->CheckContain(_pointRow - i, _pointColumn - i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow - i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
+		for (int i = 1; i < _size - _pointRow; i++) {
+			if (XO == _board->CheckContain(_pointRow + i, _pointColumn + i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow + i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
 		return true;
 	}
 	return false;
@@ -515,6 +579,27 @@ bool Game::IsEndSecondDiag() {
 	}
 
 	if (bottomDiag + topDiag >= 5) {
+		int count = 0;
+		for (int i = 0; i <= _pointRow; i++) {
+			if (XO == _board->CheckContain(_pointRow - i, _pointColumn + i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow - i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
+		for (int i = 1; i < _size - _pointRow; i++) {
+			if (XO == _board->CheckContain(_pointColumn - i, _pointColumn - i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn - i];
+				count++;
+			}
+			else {
+				break;
+			}
+		}
+
 		return true;
 	}
 	return false;
@@ -549,12 +634,12 @@ void Game::AskContinue() {
 		Common::GotoXY(42, 16);
 		Common::Color(colorChoice[0], WHITE);
 		Graphic::DrawRectangle(26, 22, 4, 2);
-		Common::GotoXY(29, 23); cout << "YES";
+		Common::GotoXY(29, 23); std::cout << "YES";
 
 		Common::GotoXY(42, 17);
 		Common::Color(colorChoice[1], WHITE);
 		Graphic::DrawRectangle(62, 22, 4, 2);
-		Common::GotoXY(65, 23); cout << "NO";
+		Common::GotoXY(65, 23); std::cout << "NO";
 
 		for (int i = 0; i < numberChoice; i++) {
 			colorChoice[i] = BLACK;
@@ -608,9 +693,9 @@ void Game::SaveGame() {
 		flag = 0;
 		Common::GotoXY(25, 15);
 		Common::ShowConsoleCursor(true);
-		cout << string(200, ' ');
+		std::cout << string(200, ' ');
 		Common::GotoXY(25, 15);
-		cout << "Enter your file name (.txt file): ";
+		std::cout << "Enter your file name (.txt file): ";
 		getline(cin, filename);
 
 		//check space in file name
@@ -635,7 +720,7 @@ void Game::SaveGame() {
 	Common::Color(BLACK, WHITE);
 	Graphic::SaveGameAscii();
 	Common::GotoXY(35, 15);
-	cout << "Save sucessfully";
+	std::cout << "Save sucessfully";
 
 	string path = "data\\" + filename;
 	ifstream fi;
@@ -646,7 +731,7 @@ void Game::SaveGame() {
 	fi.open("load.txt");
 	if (!fi)
 	{
-		cout << "cannot open file" << endl;
+		std::cout << "cannot open file" << endl;
 	}
 	else
 	{
@@ -720,7 +805,7 @@ void Game::WinLoseResult() {
 	}
 	Common::Color(YELLOW, WHITE);
 	Graphic::DrawRectangle(37, 18, 13, 2);
-	Common::GotoXY(39, 19); cout << "PRESS ENTER TO CONTINUE";
+	Common::GotoXY(39, 19); std::cout << "PRESS ENTER TO CONTINUE";
 
 	while (Common::GetEvent() != 5) {
 	}
@@ -736,13 +821,13 @@ void Game::DrawBoard() {
 			Common::GotoXY(_x, _y);
 			if (_board->_arrPoint[j][i].ReturnChoosing() == 1) {		//x 
 				Common::Color(RED, WHITE);
-				cout << "X ";
+				std::cout << "X ";
 			}
 			else if (_board->_arrPoint[j][i].ReturnChoosing() == 2) {
 				Common::Color(BLUE, WHITE);
-				cout << "O ";
+				std::cout << "O ";
 			}
-			//cout << count++;
+			//std::cout << count++;
 		}
 	}
 	_pointColumn = _size / 2;
@@ -751,3 +836,35 @@ void Game::DrawBoard() {
 	DrawInfoOfGame();
 }
 
+void Game::PrintWinPos()
+{
+	int loop = 15;
+	while (loop)
+	{
+		Common::Color(loop, WHITE);
+		for (int i = 0; i < 5; i++)
+		{
+			Common::GotoXY(winPos[i].GetX(), winPos[i].GetY());
+			if (!_turnX) {
+				std::cout << "X ";
+			}
+			else {
+				std::cout << "O ";
+			}
+		}
+		Sleep(100);
+		for (int i = 0; i < 5; i++)
+		{
+			Common::GotoXY(winPos[i].GetX(), winPos[i].GetY());
+			if (!_turnX) {
+				std::cout << "x ";
+			}
+			else {
+				std::cout << "o ";
+			}
+		}
+		Sleep(300);
+		loop--;
+	}
+
+}

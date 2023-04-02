@@ -5,11 +5,20 @@ Menu::Menu() {
 	_effectSound = 0;
 	SetUp();
 
-	_numberTitle = 5;
+	_numberIcon = 6;
+	_colorIcon = new int[_numberIcon];
+	_colorSquare = new int[_numberIcon];
+
+	_numberTitle = 6;
 	_colorTitle = new int[_numberTitle];
 	_colorTitle[0] = RED;
+
+	_colorIcon[0] = RED;
+	_colorSquare[0] = BLACK;
 	for (int i = 1; i < _numberTitle; i++) {
 		_colorTitle[i] = BLACK;
+		_colorIcon[i] = BLACK;
+		_colorSquare[i] = WHITE;
 	}
 
 	_counter = 1;
@@ -19,6 +28,11 @@ Menu::Menu() {
 }
 
 Menu::~Menu() {
+	_colorIcon = NULL;
+	_colorSquare = NULL;
+	delete _colorIcon;
+	delete _colorSquare;
+
 	_colorTitle = NULL;
 	delete _colorTitle;
 }
@@ -40,9 +54,9 @@ void Menu::ProcessCounter() {
 
 	switch (Common::GetEvent()) {
 	case 1:		// UP
-		if (_counter > 1) {
+		if (_counter > 3) {
 			Common::playSound(EFFECT_SOUND, _effectSound);
-			_counter--;
+			_counter-=3;
 			break;
 		}
 		break;
@@ -54,14 +68,14 @@ void Menu::ProcessCounter() {
 		}
 		break;
 	case 3:		// DOWN
-		if (_counter < 5) {
+		if (_counter < 4) {
 			Common::playSound(EFFECT_SOUND, _effectSound);
-			_counter++;
+			_counter+=3;
 			break;
 		}
 		break;
 	case 4:		// RIGHT
-		if (_counter < 5) {
+		if (_counter < 6) {
 			Common::playSound(EFFECT_SOUND, _effectSound);
 			_counter++;
 			break;
@@ -77,13 +91,16 @@ void Menu::ProcessCounter() {
 			LoadGame();
 			break;
 		case 3:
-			Help();
+			Setting();
 			break;
 		case 4:
-			About();
+			Help();
 			break;
 		case 5:
-			system("cls");
+			About();
+			break;
+		case 6:
+			Exit();
 			_flag = false;
 			break;
 		default:
@@ -121,39 +138,41 @@ void Menu::SetUp() {
 
 void Menu::RenderMenu() {
 	while (_flag) {
-		Common::GotoXY(42, 16);
-		Common::Color(_colorTitle[0], WHITE);
-		cout << "1. New game";
+		Graphic::DrawPlay(_colorIcon[0], _colorSquare[0]);
 
-		Common::GotoXY(42, 17);
-		Common::Color(_colorTitle[1], WHITE);
-		cout << "2. Load Game";
+		Graphic::DrawLoad(_colorIcon[1], _colorSquare[1]);
 
-		Common::GotoXY(42, 18);
-		Common::Color(_colorTitle[2], WHITE);
-		cout << "3. Help";
+		Graphic::DrawSetting(_colorIcon[2], _colorSquare[2]);
+		
+		Graphic::DrawHelp(_colorIcon[3], _colorSquare[3]);
 
-		Common::GotoXY(42, 19);
-		Common::Color(_colorTitle[3], WHITE);
-		cout << "4. About";
-
-		Common::GotoXY(42, 20);
-		Common::Color(_colorTitle[4], WHITE);
-		cout << "5. Exit";
+		Graphic::DrawAbout(_colorIcon[4], _colorSquare[4]);
+		
+		Graphic::DrawExit(_colorIcon[5], _colorSquare[5]);
 
 
-		for (int i = 0; i < _numberTitle; i++) {
-			_colorTitle[i] = BLACK;
+
+		for (int i = 0; i < _numberIcon; i++) {
+			_colorIcon[i] = BLACK;
+			_colorSquare[i] = WHITE;
 		}
 
 		ProcessCounter();
 
-		_colorTitle[_counter - 1] = RED;
+		_colorIcon[_counter - 1] = RED;
+		_colorSquare[_counter - 1] = BLACK;
 	}
 }
 
 void Menu::ResetMenu() {
-	SetUp();
+	system("cls");
+	Common::ChangeFont();
+	Common::ResizeConsole(1000, 700);
+	Common::FixConsoleWindow();
+	Common::MoveCenter();
+	Common::ShowConsoleCursor(false);
+	system("color 70");
+	Graphic::DrawTitle();
 
 	_colorTitle[0] = RED;
 	for (int i = 1; i < _numberTitle; i++) {
@@ -185,12 +204,12 @@ void Menu::NewGame() {
 		Common::GotoXY(42, 16);
 		Common::Color(colorChoice[0], WHITE);
 		Graphic::DrawRectangle(42, 18, 6, 2);
-		Common::GotoXY(45, 19); cout << "1 Player";
+		Common::GotoXY(45, 19); std::cout << "1 Player";
 
 		Common::GotoXY(42, 17);
 		Common::Color(colorChoice[1], WHITE);
 		Graphic::DrawRectangle(42, 22, 6, 2);
-		Common::GotoXY(45, 23); cout << "2 Player";
+		Common::GotoXY(45, 23); std::cout << "2 Player";
 
 		for (int i = 0; i < numberChoice; i++) {
 			colorChoice[i] = BLACK;
@@ -246,7 +265,7 @@ void Menu::LoadGame() {
 	fi.open("load.txt");
 	if (!fi)
 	{
-		cout << "Cannot open file List Load" << endl;
+		std::cout << "Cannot open file List Load" << endl;
 	}
 	else
 	{
@@ -261,7 +280,7 @@ void Menu::LoadGame() {
 	if (!fileName.size())
 	{
 		Common::GotoXY(42, 15);
-		cout << "No game files were found!";
+		std::cout << "No game files were found!";
 		Sleep(3000);
 		return;
 	}
@@ -334,6 +353,48 @@ void Menu::LoadGame() {
 	ResetMenu();
 }
 
+void Menu::Setting() {
+	Graphic::Setting();
+	std::cout << "Press Enter to Continue";
+	bool flag = true;
+	while (flag) {
+		if (!_effectSound) {
+			if (!_countSound) {
+				Common::playBackground(_playBackground);
+				_countSound++;
+			}
+		}
+		else {
+			if (!_countSound) {
+				Common::playBackground(_playBackground);
+				_countSound++;
+			}
+		}
+
+
+		switch (Common::GetEvent()) {
+		case 5:
+			flag = false;
+			break;
+		case 8:
+			if (_playBackground) {
+				_playBackground = 0;
+				_effectSound = 1;
+				_countSound = 0;
+			}
+			else {
+				_playBackground = 1;
+				_effectSound = 0;
+				_countSound = 0;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	ResetMenu();
+}
+
 void Menu::Help() {
 	Graphic::Help();
 	system("pause");
@@ -346,7 +407,15 @@ void Menu::About() {
 	ResetMenu();
 }
 
-
+void Menu::Exit() {
+	Common::Color(BLACK, WHITE);
+	system("cls");
+	Common::GotoXY(35, 14);
+	std::cout << "Press any key to close Caro game";
+	Sleep(200);
+	Common::Color(WHITE, WHITE);
+	exit(0);
+}
 
 void Menu::changeFile(vector<string>& fileName, int& file)
 {
@@ -372,12 +441,12 @@ void Menu::changeFile(vector<string>& fileName, int& file)
 		if (i == file)
 		{
 			Common::Color(RED, WHITE);
-			cout << fileName[i];
+			std::cout << fileName[i];
 			Common::Color(BLACK, WHITE);
 		}
 		else
 		{
-			cout << fileName[i];
+			std::cout << fileName[i];
 		}
 	}
 }
