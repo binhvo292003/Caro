@@ -324,10 +324,13 @@ void Game::ProcessPoint() {
 	// Check end game
 	if (IsEndGame()) {
 		_isGameRunning = false;
+		Common::playSound(WIN_SOUND);
 		PrintWinPos();
 	}
 
-	MoveDown();
+	if (_isTwoPlayer) {
+		MoveDown();
+	}
 }
 
 void Game::PrintTempChoice(const bool& turnX) {
