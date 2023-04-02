@@ -322,6 +322,7 @@ void Graphic::Common4Corners(int x, int y) {
 }
 
 void Graphic::Highlight4Corners(int x, int y) {
+	SetConsoleOutputCP(CP_UTF8);
 	Common::Color(BLACK, WHITE);
 	Common::GotoXY(x - 2, y - 1); std::cout << "╔";
 	Common::GotoXY(x + 2, y - 1); std::cout << "╗";
