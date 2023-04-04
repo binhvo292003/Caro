@@ -361,6 +361,7 @@ void Graphic::Setting() {
 
 void Graphic::About() {
 	system("cls");
+	SetConsoleOutputCP(CP_UTF8);
 	const char* about = R""""(
 			 _______  _______  _______  __   __  _______ 
 			|   _   ||  _    ||       ||  | |  ||       |
@@ -389,6 +390,7 @@ void Graphic::About() {
 
 void Graphic::Help() {
 	system("cls");
+	SetConsoleOutputCP(CP_UTF8);
 	const char* about = R""""(
 			 __   __  _______  ___      _______ 
 			|  | |  ||       ||   |    |       |
@@ -465,7 +467,7 @@ void Graphic::DrawSetting(int icon, int square) {
 	Common::GotoXY(70, 18 - 3); std::cout << R"(   █  ▀▀  █   )";
 	Common::GotoXY(70, 19 - 3); std::cout << R"(    ▀█  █▀    )";
 	Common::GotoXY(70, 20 - 3); std::cout << R"(     █  █     )";
-	Common::GotoXY(70, 21 - 3); std::cout << R"(     ▀▀▀▀     )";
+	Common::GotoXY(70, 21 - 3); std::cout << R"(      ▀▀      )";
 
 	Common::Color(square, bg);
 	Common::GotoXY(70, 16 - 3); std::cout << R"(█▀          ▀█)";
@@ -482,14 +484,14 @@ void Graphic::DrawHelp(int icon, int square) {
 	int bg = WHITE;
 
 	Common::Color(square, bg);
-	Common::GotoXY(15, 25 - 5); std::cout << R"(█▀           ▀█)";
-	Common::GotoXY(15, 31 - 5); std::cout << R"(█▄           ▄█)";
+	Common::GotoXY(28, 25 - 6); std::cout << R"(█▀           ▀█)";
+	Common::GotoXY(28, 31 - 6); std::cout << R"(█▄           ▄█)";
 	Common::Color(icon, bg);
-	Common::GotoXY(15, 26 - 5); std::cout << R"(    ▄▄▄▄▄▄▄    )";
-	Common::GotoXY(15, 27 - 5); std::cout << R"(   █ ■■■■■ █   )";
-	Common::GotoXY(15, 28 - 5); std::cout << R"(   █ ■■■■■ █   )";
-	Common::GotoXY(15, 29 - 5); std::cout << R"(   █ ■■■■■ █   )";
-	Common::GotoXY(15, 30 - 5); std::cout << R"(    ▀▀▀▀▀▀▀    )";
+	Common::GotoXY(28, 26 - 6); std::cout << R"(    ▄▄▄▄▄▄▄    )";
+	Common::GotoXY(28, 27 - 6); std::cout << R"(   █ ■■■■■ █   )";
+	Common::GotoXY(28, 28 - 6); std::cout << R"(   █ ■■■■■ █   )";
+	Common::GotoXY(28, 29 - 6); std::cout << R"(   █ ■■■■■ █   )";
+	Common::GotoXY(28, 30 - 6); std::cout << R"(    ▀▀▀▀▀▀▀    )";
 
 	SetConsoleOutputCP(cp);
 }
@@ -500,14 +502,14 @@ void Graphic::DrawAbout(int icon, int square) {
 	int bg = WHITE;
 
 	Common::Color(square, bg);
-	Common::GotoXY(44, 25 - 5); std::cout << R"(█▀           ▀█)";
-	Common::GotoXY(44, 31 - 5); std::cout << R"(█▄           ▄█)";
+	Common::GotoXY(58, 25 - 6); std::cout << R"(█▀           ▀█)";
+	Common::GotoXY(58, 31 - 6); std::cout << R"(█▄           ▄█)";
 	Common::Color(icon, bg);
-	Common::GotoXY(44, 26 - 5); std::cout << R"(     ▄▄▄▄▄     )";
-	Common::GotoXY(44, 27 - 5); std::cout << R"(   ▄▀  ▄  ▀▄   )";
-	Common::GotoXY(44, 28 - 5); std::cout << R"(   █   ▄   █   )";
-	Common::GotoXY(44, 29 - 5); std::cout << R"(   ▀▄  ▀  ▄▀   )";
-	Common::GotoXY(44, 30 - 5); std::cout << R"(     ▀▀▀▀▀     )";
+	Common::GotoXY(58, 26 - 6); std::cout << R"(     ▄▄▄▄▄     )";
+	Common::GotoXY(58, 27 - 6); std::cout << R"(   ▄▀  ▄  ▀▄   )";
+	Common::GotoXY(58, 28 - 6); std::cout << R"(   █   ▄   █   )";
+	Common::GotoXY(58, 29 - 6); std::cout << R"(   ▀▄  ▀  ▄▀   )";
+	Common::GotoXY(58, 30 - 6); std::cout << R"(     ▀▀▀▀▀     )";
 
 	SetConsoleOutputCP(cp);
 }
@@ -518,14 +520,14 @@ void Graphic::DrawExit(int icon, int square) {
 	int bg = WHITE;
 
 	Common::Color(square, bg);
-	Common::GotoXY(70, 25 - 5); std::cout << R"(█▀         ▀█)";
-	Common::GotoXY(70, 31 - 5); std::cout << R"(█▄         ▄█)";
+	//Common::GotoXY(70, 25 - 5); std::cout << R"(█▀         ▀█)";
+	//Common::GotoXY(70, 31 - 5); std::cout << R"(█▄         ▄█)";
 	Common::Color(icon, bg);
-	Common::GotoXY(72, 21); std::cout << R"(    █       )";
-	Common::GotoXY(72, 22); std::cout << R"(▄▀  █  ▀▄   )";
-	Common::GotoXY(72, 23); std::cout << R"(█   ▀   █   )";
-	Common::GotoXY(72, 24); std::cout << R"(▀▄     ▄▀   )";
-	Common::GotoXY(72, 25); std::cout << R"(  ▀▀▀▀▀     )";
+	Common::GotoXY(80, 21 + 4); std::cout << R"(    █       )";
+	Common::GotoXY(80, 22 + 4); std::cout << R"(▄▀  █  ▀▄   )";
+	Common::GotoXY(80, 23 + 4); std::cout << R"(█   ▀   █   )";
+	Common::GotoXY(80, 24 + 4); std::cout << R"(▀▄     ▄▀   )";
+	Common::GotoXY(80, 25 + 4); std::cout << R"(  ▀▀▀▀▀     )";
 
 
 	SetConsoleOutputCP(cp);

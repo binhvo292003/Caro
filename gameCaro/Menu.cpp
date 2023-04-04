@@ -83,6 +83,7 @@ void Menu::ProcessCounter() {
 		break;
 	case 5:
 		Common::playSound(ENTER_SOUND, _effectSound);
+		SetUp2();
 		switch (_counter) {
 		case 1:
 			NewGame();
@@ -126,7 +127,7 @@ void Menu::ProcessCounter() {
 
 void Menu::SetUp() {
 	system("cls");
-	Common::ChangeFont();
+	Common::ChangeFont2();
 	Common::ResizeConsole(1000, 700);
 	Common::FixConsoleWindow();
 	Common::MoveCenter();
@@ -134,6 +135,16 @@ void Menu::SetUp() {
 	system("color 70");
 	Graphic::DrawTitle();
 	Common::playBackground(_playBackground);
+}
+
+void Menu::SetUp2() {
+	system("cls");
+	Common::ChangeFont();
+	Common::ResizeConsole(1000, 700);
+	Common::FixConsoleWindow();
+	Common::MoveCenter();
+	Common::ShowConsoleCursor(false);
+	system("color 70");
 }
 
 void Menu::RenderMenu() {
@@ -166,7 +177,7 @@ void Menu::RenderMenu() {
 
 void Menu::ResetMenu() {
 	system("cls");
-	Common::ChangeFont();
+	Common::ChangeFont2();
 	Common::ResizeConsole(1000, 700);
 	Common::FixConsoleWindow();
 	Common::MoveCenter();
@@ -199,6 +210,7 @@ void Menu::NewGame() {
 
 	int counter = 1;
 	bool flag = true;
+	bool flagBreak = true;
 
 	while (flag) {
 		Common::GotoXY(42, 16);
@@ -242,6 +254,10 @@ void Menu::NewGame() {
 				break;
 			}
 			break;
+		case 7:						//esc
+			flagBreak = false;
+			flag = false;
+			break;
 		default:
 			break;
 		}
@@ -249,10 +265,12 @@ void Menu::NewGame() {
 		colorChoice[counter - 1] = GREEN;
 	}
 	
-	Game* game;
-	
-	game = new Game(isTwoPlayer);
-	game->Play();
+	if (flagBreak) {
+		Game* game;
+
+		game = new Game(isTwoPlayer);
+		game->Play();
+	}
 
 	ResetMenu();
 }

@@ -90,6 +90,19 @@ void Common::ChangeFont() {
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 }
 
+void Common::ChangeFont2() {
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(cfi);
+	GetCurrentConsoleFontEx(GetConsoleWindow(), FALSE, &cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.X = 0;                   // Width of each character in the font
+	cfi.dwFontSize.Y = 21;                  // Height
+	cfi.FontFamily = FF_DONTCARE;
+	cfi.FontWeight = FW_BOLD;
+	wcscpy_s(cfi.FaceName, L"Consolas"); // Choose your font
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+}
+
 void Common::ShowConsoleCursor(const bool& showFlag) {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 

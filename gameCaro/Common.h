@@ -54,6 +54,7 @@ struct Common {
 	static void MoveCenter();
 	static void ResizeConsole(const int& width, const int& height);
 	static void ChangeFont();
+	static void ChangeFont2();
 	static void ShowConsoleCursor(const bool& showFlag);
 	static void playSound(int i);
 	static void playSound(int i, bool flag);

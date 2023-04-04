@@ -324,7 +324,6 @@ void Game::ProcessPoint() {
 	// Check end game
 	if (IsEndGame()) {
 		_isGameRunning = false;
-		Common::playSound(WIN_SOUND);
 		PrintWinPos();
 	}
 
@@ -841,6 +840,7 @@ void Game::DrawBoard() {
 
 void Game::PrintWinPos()
 {
+	Common::playSound(WIN_SOUND,true);
 	int loop = 15;
 	while (loop)
 	{

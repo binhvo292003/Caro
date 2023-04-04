@@ -29,6 +29,7 @@ struct Menu {
 	~Menu();
 
 	void SetUp();
+	void SetUp2();
 	void ProcessCounter();
 	void RenderMenu();
 	void NewGame();
