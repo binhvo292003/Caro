@@ -728,7 +728,7 @@ void Game::SaveGame() {
 	ifstream fi;
 	ofstream fo;
 
-	int tmpInt;
+	int tmpInt = 0;
 	string tmp;
 	fi.open("load.txt");
 	if (!fi)

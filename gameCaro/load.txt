@@ -1,3 +1,6 @@
 data\binh.txt
 data\a.txt
 data\abc.txt
+data\phuc.txt
+data\long.txt
+data\thien.txt
