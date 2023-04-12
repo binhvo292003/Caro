@@ -6,12 +6,13 @@ void Graphic::DrawTitle() {
 	SetConsoleOutputCP(CP_UTF8);
 
 	Common::Color(BLUE, AQUA);
-	Common::GotoXY(39, 5);  cout << R"( ████████╮        ███╰╮       ███████╮      ████████╰─╮)";
-	Common::GotoXY(39, 6);  cout << R"(██ ╭─────╯       ██│██╰╮      ██╭───██╮    ██ ╭────██ │)";
-	Common::GotoXY(39, 7);  cout << R"(██ │            ██╭╯ ██╰╮     ███████╭╯    ██ │    ██ │)";
-	Common::GotoXY(39, 8);  cout << R"(██ │           █████████╰╮    ██╭───██╮    ██ │    ██ │)";
-	Common::GotoXY(39, 9);  cout << R"( ████████╮    ██ ╭────╮██│    ██│   ██│     ████████ ╭╯)";
-	Common::GotoXY(39, 10); cout << R"( ╰───────╯    ╰──╯    ╰──╯    ╰─╯   ╰─╯     ╰────────╯ )";
+	 
+	Common::GotoXY(37, 5);  cout << R"(  ████████╗       ██████╗        █████████╗     ████████╗       )";
+	Common::GotoXY(37, 6);  cout << R"( ███ ╔════╝      ███╔═███╗       ███╔══╗███    ███╔═══███╗      )";
+	Common::GotoXY(37, 7);  cout << R"( ███ ║          ███╔╝ ╚███╗      █████████═╗   ███║   ███║      )";
+	Common::GotoXY(37, 8);  cout << R"( ███ ║         ████████████╗     ███╔═══███║   ███║   ███║      )";
+	Common::GotoXY(37, 9);  cout << R"(  ████████╗    ███ ╔════███║     ███║   ███║   ╚████████╔╝      )";
+	Common::GotoXY(37, 10); cout << R"(  ╚═══════╝     ╚══╝    ╚══╝     ╚══╝   ╚══╝    ╚═══════╝       )";
 
 	SetConsoleOutputCP(cp);
 }
