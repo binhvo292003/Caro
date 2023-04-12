@@ -11,7 +11,7 @@ Board::Board(const int& size, const int& x, const int& y) {
 	_edgeBottom = _y + _stepY * (size - 1);
 	_edgeRight = _x + _stepX * (size - 1);
 
-	_arrPoint = new Point*[_size];
+	_arrPoint = new Point * [_size];
 	for (int i = 0; i < _size; i++) {
 		_arrPoint[i] = new Point[_size];
 	}
@@ -23,7 +23,7 @@ Board::Board(const int& size, const int& x, const int& y) {
 	}
 }
 
-Board::~Board(){
+Board::~Board() {
 	for (int i = 0; i < _size; i++) {
 		delete[] _arrPoint[_size];
 	}
@@ -33,7 +33,6 @@ Board::~Board(){
 
 void Board::DrawBoard() {
 	system("cls");
-	Common::ChangeFont();
 	Common::Color(BLACK, WHITE);
 
 	for (int j = 1; j < _size * 2; j += 2) {
@@ -43,7 +42,7 @@ void Board::DrawBoard() {
 			//std::cout << "║";
 			std::cout << "|";
 		}
-		Sleep(50);
+		Sleep(30);
 	}
 
 	for (int j = 0; j < _size * 2 + 1; j += 2) {
@@ -52,7 +51,7 @@ void Board::DrawBoard() {
 			//std::cout << "═══";
 			std::cout << "---";
 		}
-		Sleep(50);
+		Sleep(30);
 	}
 
 	for (int j = 2; j < _size * 2; j += 2) {
@@ -61,7 +60,7 @@ void Board::DrawBoard() {
 			//std::cout << "╬";
 			std::cout << "+";
 		}
-		Sleep(50);
+		Sleep(30);
 	}
 
 	//Ve canh tren

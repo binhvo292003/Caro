@@ -8,6 +8,7 @@
 #include "Common.h"
 #include "Board.h"
 #include "Graphic.h"
+#include "Sound.h"
 
 
 using namespace std;
@@ -62,6 +63,8 @@ struct Game {
 	bool IsEndPrimeDiag();
 	bool IsEndSecondDiag();
 
-};
 
+
+};
+int getRandomInt(int begin, int end);
 #endif // !GAME

@@ -33,7 +33,7 @@ void Point::SetY(const int& y) {
 	_y = y;
 }
 
-void Point::SetChoosing(const int& XO){
+void Point::SetChoosing(const int& XO) {
 	if (_isChoosing != 0) {
 		return;
 	}

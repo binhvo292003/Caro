@@ -9,7 +9,7 @@ struct Player {
 	int _scores;
 	int _currentMoves;
 	char _team;
-	
+
 	string name = "Unknown";
 
 	Player();

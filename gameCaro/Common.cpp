@@ -77,30 +77,23 @@ void Common::ResizeConsole(const int& width, const int& height) {
 	MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
 
-void Common::ChangeFont() {
+void Common::ChangeFont(int size) {
 	CONSOLE_FONT_INFOEX cfi;
 	cfi.cbSize = sizeof(cfi);
 	GetCurrentConsoleFontEx(GetConsoleWindow(), FALSE, &cfi);
 	cfi.nFont = 0;
 	cfi.dwFontSize.X = 0;                   // Width of each character in the font
-	cfi.dwFontSize.Y = 20;                  // Height
+	cfi.dwFontSize.Y = size;                  // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_BOLD;
 	wcscpy_s(cfi.FaceName, L"Consolas"); // Choose your font
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 }
 
-void Common::ChangeFont2() {
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	GetCurrentConsoleFontEx(GetConsoleWindow(), FALSE, &cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.X = 0;                   // Width of each character in the font
-	cfi.dwFontSize.Y = 21;                  // Height
-	cfi.FontFamily = FF_DONTCARE;
-	cfi.FontWeight = FW_BOLD;
-	wcscpy_s(cfi.FaceName, L"Consolas"); // Choose your font
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+void Common::SetConsole(int size) {
+	Common::ChangeFont(size);
+	Common::ResizeConsole(1100, 700);
+	Common::MoveCenter();
 }
 
 void Common::ShowConsoleCursor(const bool& showFlag) {
@@ -111,37 +104,4 @@ void Common::ShowConsoleCursor(const bool& showFlag) {
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = showFlag; // set the cursor visibility
 	SetConsoleCursorInfo(out, &cursorInfo);
-}
-
-int getRandomInt(int begin, int end) {
-	//srand(time(NULL));
-	int n = rand() % (end - begin + 1) + begin;
-	return n;
-}
-
-void Common::playSound(int i, bool flag)
-{
-	if (flag) {
-		static vector<const wchar_t*> soundFile{ L"sounds\\win.wav", L"sounds\\X_Move.wav",
-			L"sounds\\O_Move.wav", L"sounds\\enter.wav",  L"sounds\\effect.wav" };
-		PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
-	}
-}
-
-void Common::playSound(int i)
-{
-	static vector<const wchar_t*> soundFile{ L"sounds\\win.wav", L"sounds\\X_Move.wav",
-		L"sounds\\O_Move.wav", L"sounds\\enter.wav",  L"sounds\\effect.wav" };
-	PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
-
-}
-
-void Common::playBackground(bool flag)
-{
-	if (flag) {
-		PlaySound(L"sounds\\background.wav", NULL, SND_FILENAME | SND_ASYNC);
-	}
-	else {
-		PlaySound(NULL, NULL, SND_ASYNC);
-	}
 }

@@ -7,6 +7,7 @@
 #include "Common.h"
 #include "Graphic.h"
 #include "Game.h"
+#include "Sound.h"
 
 using namespace std;
 

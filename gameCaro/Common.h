@@ -11,12 +11,14 @@
 #include <codecvt>
 #include <time.h>       
 #include <vector>
+#include <mmsystem.h>
+#include<fstream>
 
 #define WIN_SOUND 0
 #define X_MOVE_SOUND 1
 #define O_MOVE_SOUND 2
-#define	ENTER_SOUND 3
-#define EFFECT_SOUND 4
+#define	SELECT_SOUND 3
+#define OPTION_SOUND 4
 
 #define BLACK 0
 #define BLUE 1
@@ -53,15 +55,12 @@ struct Common {
 	static void FixConsoleWindow();
 	static void MoveCenter();
 	static void ResizeConsole(const int& width, const int& height);
-	static void ChangeFont();
-	static void ChangeFont2();
+	static void ChangeFont(int size);
+	static void SetConsole(int size);
 	static void ShowConsoleCursor(const bool& showFlag);
-	static void playSound(int i);
-	static void playSound(int i, bool flag);
-	static void playBackground(bool flag);
 };
 
-int getRandomInt(int begin, int end);
+
 
 
 #endif // !COMMON

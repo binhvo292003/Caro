@@ -10,10 +10,9 @@ using namespace std;
 struct Graphic {
 	static void DrawTitle();
 	static void DrawTable();
-	static void DrawRectangle(const int& posX, const int& posY, 
-							const int& width, const int& height);
+	static void DrawRectangle(const int& posX, const int& posY,
+		const int& width, const int& height);
 	static void HelpBox();
-	static void TurnBox();
 	static void DrawAsciiX();
 	static void DrawAsciiO();
 	static void EndGameAscii();
@@ -28,8 +27,9 @@ struct Graphic {
 	static void Common4Corners(int x, int y);
 	static void Highlight4Corners(int x, int y);
 	static void Normal4Corners(int x, int y);
-	
-	static void Setting();
+
+	static void DrawSettingChar();
+	static void Setting(int counter, int counterBackground, int color_counter, int color_counterbg);
 	static void About();
 	static void Help();
 
@@ -38,8 +38,10 @@ struct Graphic {
 	static void DrawSetting(int icon, int square);
 	static void DrawHelp(int icon, int square);
 	static void DrawAbout(int icon, int square);
-	static void DrawExit(int icon, int square);
-
+	static void DrawExit(int icon);
+	static void DrawOCharacter();
+	static void DrawXCharacter();
+	static void DrawCloud();
 };
 
 #endif // !GRAPHIC

@@ -91,7 +91,7 @@ Game::Game(string txtFile) {
 			_board = new Board(_size, 4, 1);
 			for (int i = 0; i < _size; i++) {
 				for (int j = 0; j < _size; j++) {
-					
+
 					if (j == _size - 1) {
 						getline(fi, temp);
 						tmpInt = stoi(temp);
@@ -110,7 +110,7 @@ Game::Game(string txtFile) {
 				}
 				std::cout << endl;
 			}
-			
+
 			//system("pause");
 			_pointRow = _size / 2;
 			_pointColumn = _size / 2;
@@ -133,7 +133,7 @@ void Game::Play() {
 		DrawBoard();
 		DrawInfoOfGame();
 
-		Common::ShowConsoleCursor(true);
+		Common::ShowConsoleCursor(false);
 		Common::GotoXY(_x, _y);
 		MoveUp();
 
@@ -223,7 +223,7 @@ void Game::GetXYatPoint(const int& row, const int& column) {
 }
 
 void Game::MoveUp() {
-	Common::playSound(EFFECT_SOUND);
+	Sound::playSound(OPTION_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_y <= _board->_edgeTop) {
 		return;
@@ -241,7 +241,7 @@ void Game::MoveUp() {
 }
 
 void Game::MoveLeft() {
-	Common::playSound(EFFECT_SOUND);
+	Sound::playSound(OPTION_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_x <= _board->_edgeLeft) {
 		return;
@@ -259,7 +259,7 @@ void Game::MoveLeft() {
 }
 
 void Game::MoveDown() {
-	Common::playSound(EFFECT_SOUND);
+	Sound::playSound(OPTION_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_y >= _board->_edgeBottom) {
 		return;
@@ -277,7 +277,7 @@ void Game::MoveDown() {
 }
 
 void Game::MoveRight() {
-	Common::playSound(EFFECT_SOUND);
+	Sound::playSound(OPTION_SOUND);
 	Graphic::Common4Corners(_x, _y);
 	if (_x >= _board->_edgeRight) {
 		return;
@@ -299,7 +299,7 @@ void Game::ProcessPoint() {
 	}
 
 	if (_turnX) {
-		Common::playSound(X_MOVE_SOUND);
+		Sound::playSound(X_MOVE_SOUND);
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 1);
 		Common::Color(RED, WHITE);
 		Common::GotoXY(_x, _y);
@@ -308,7 +308,7 @@ void Game::ProcessPoint() {
 		_turnX = false;
 	}
 	else {
-		Common::playSound(O_MOVE_SOUND);
+		Sound::playSound(O_MOVE_SOUND);
 		_board->ChoosingAtPoint(_pointRow, _pointColumn, 2);
 		Common::Color(BLUE, WHITE);
 		Common::GotoXY(_x, _y);
@@ -351,17 +351,17 @@ void Game::PrintTempChoice(const bool& turnX) {
 }
 
 void Game::DrawInfoX() {
-	Graphic::DrawRectangle(65, 10, 15, 10);
-	Common::GotoXY(68, 19); std::cout << "Moves: " << _countX;
-	Common::GotoXY(85, 19); std::cout << "Wins: " << _pointWinX;
+	Graphic::DrawRectangle(75, 10, 15, 10);
+	Common::GotoXY(78, 19); std::cout << "Moves: " << _countX;
+	Common::GotoXY(95, 19); std::cout << "Wins: " << _pointWinX;
 	Common::Color(RED, WHITE);
 	Graphic::DrawAsciiX();
 }
 
 void Game::DrawInfoO() {
-	Graphic::DrawRectangle(65, 10, 15, 10);
-	Common::GotoXY(68, 19); std::cout << "Moves: " << _countO;
-	Common::GotoXY(85, 19); std::cout << "Wins: " << _pointWinO;
+	Graphic::DrawRectangle(75, 10, 15, 10);
+	Common::GotoXY(78, 19); std::cout << "Moves: " << _countO;
+	Common::GotoXY(95, 19); std::cout << "Wins: " << _pointWinO;
 	Common::Color(BLUE, WHITE);
 	Graphic::DrawAsciiO();
 }
@@ -539,18 +539,14 @@ bool Game::IsEndPrimeDiag() {
 
 		for (int i = 1; i < _size - _pointRow; i++) {
 			if (XO == _board->CheckContain(_pointRow + i, _pointColumn + i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow + i];
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow + i];
 				count++;
 			}
 			else {
 				break;
 			}
 		}
-		//for (int i = 0; i < 5; i++) {
-		//	Common::GotoXY(70, 25 + i);
-		//	cout << winPos[i].GetX() << "/" << winPos[i].GetY();
-		//}
-		////system("pause");
+
 		return true;
 	}
 	return false;
@@ -597,8 +593,8 @@ bool Game::IsEndSecondDiag() {
 		}
 
 		for (int i = 1; i < _size - _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointColumn + i, _pointColumn - i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn + i];
+			if (XO == _board->CheckContain(_pointColumn - i, _pointColumn - i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn - i];
 				count++;
 			}
 			else {
@@ -639,13 +635,13 @@ void Game::AskContinue() {
 	while (flag) {
 		Common::GotoXY(42, 16);
 		Common::Color(colorChoice[0], WHITE);
-		Graphic::DrawRectangle(26, 22, 4, 2);
-		Common::GotoXY(29, 23); std::cout << "YES";
+		Graphic::DrawRectangle(36, 22, 4, 2);
+		Common::GotoXY(39, 23); std::cout << "YES";
 
 		Common::GotoXY(42, 17);
 		Common::Color(colorChoice[1], WHITE);
-		Graphic::DrawRectangle(62, 22, 4, 2);
-		Common::GotoXY(65, 23); std::cout << "NO";
+		Graphic::DrawRectangle(72, 22, 4, 2);
+		Common::GotoXY(75, 23); std::cout << "NO";
 
 		for (int i = 0; i < numberChoice; i++) {
 			colorChoice[i] = BLACK;
@@ -703,7 +699,7 @@ void Game::SaveGame() {
 		Common::GotoXY(25, 15);
 		std::cout << "Enter your file name (.txt file): ";
 		getline(cin, filename);
-
+		Common::ShowConsoleCursor(false);
 		//check space in file name
 		int length = filename.length();
 		for (int i = 0; i < length; i++) {
@@ -721,7 +717,7 @@ void Game::SaveGame() {
 	if (!(filename.find(".txt") != string::npos)) {
 		filename.append(".txt");
 	}
-	
+
 	system("cls");
 	Common::Color(BLACK, WHITE);
 	Graphic::SaveGameAscii();
@@ -810,8 +806,8 @@ void Game::WinLoseResult() {
 		}
 	}
 	Common::Color(YELLOW, WHITE);
-	Graphic::DrawRectangle(37, 18, 13, 2);
-	Common::GotoXY(39, 19); std::cout << "PRESS ENTER TO CONTINUE";
+	Graphic::DrawRectangle(43, 18, 13, 2);
+	Common::GotoXY(45, 19); std::cout << "PRESS ENTER TO CONTINUE";
 
 	while (Common::GetEvent() != 5) {
 	}
@@ -844,7 +840,7 @@ void Game::DrawBoard() {
 
 void Game::PrintWinPos()
 {
-	Common::playSound(WIN_SOUND,true);
+	Sound::playSound(WIN_SOUND);
 	int loop = 15;
 	while (loop)
 	{
@@ -874,4 +870,9 @@ void Game::PrintWinPos()
 		loop--;
 	}
 
+}
+
+int getRandomInt(int begin, int end) {
+	int n = rand() % (end - begin + 1) + begin;
+	return n;
 }
