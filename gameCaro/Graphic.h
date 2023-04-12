@@ -32,6 +32,7 @@ struct Graphic {
 	static void Setting(int counter, int counterBackground, int color_counter, int color_counterbg);
 	static void About();
 	static void Help();
+	static void PauseGame();
 
 	static void DrawPlay(int icon, int square);
 	static void DrawLoad(int icon, int square);

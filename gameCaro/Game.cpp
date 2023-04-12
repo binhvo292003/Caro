@@ -173,12 +173,12 @@ void Game::Play() {
 					break;
 				case 6:
 					SaveGame();
-					//_isGameRunning = false;
-					//_pause = true;
 					break;
 				case 7:
 					_isGameRunning = false;
-					_pause = true;
+					break;
+				case 9:
+					PauseGame();
 					break;
 				}
 			}
@@ -187,17 +187,9 @@ void Game::Play() {
 				ProcessPoint();
 			}
 			DrawInfoOfGame();
-			/*Common::GotoXY(70, 28);
-			std::cout << _y << "/" << _x << endl;
-			Common::GotoXY(70, 29);
-			std::cout << _pointRow << "/" << _pointColumn << endl;
-			Common::GotoXY(70, 30);
-			std::cout << _board->_arrPoint[_pointRow][_pointColumn].ReturnChoosing();*/
 		}
 
 		WinLoseResult();
-
-
 		AskContinue();
 		ResetDataForNewGame();
 	}
@@ -327,6 +319,11 @@ void Game::ProcessPoint() {
 		PrintWinPos();
 	}
 
+	// Draw
+	if ((_size * _size == _countO + _countX)) {
+		_isGameRunning = false;
+	}
+
 	if (_isTwoPlayer) {
 		MoveDown();
 	}
@@ -351,17 +348,17 @@ void Game::PrintTempChoice(const bool& turnX) {
 }
 
 void Game::DrawInfoX() {
-	Graphic::DrawRectangle(75, 10, 15, 10);
-	Common::GotoXY(78, 19); std::cout << "Moves: " << _countX;
-	Common::GotoXY(95, 19); std::cout << "Wins: " << _pointWinX;
+	Graphic::DrawRectangle(75, 11, 15, 10);
+	Common::GotoXY(78, 20); std::cout << "Moves: " << _countX;
+	Common::GotoXY(95, 20); std::cout << "Wins: " << _pointWinX;
 	Common::Color(RED, WHITE);
 	Graphic::DrawAsciiX();
 }
 
 void Game::DrawInfoO() {
-	Graphic::DrawRectangle(75, 10, 15, 10);
-	Common::GotoXY(78, 19); std::cout << "Moves: " << _countO;
-	Common::GotoXY(95, 19); std::cout << "Wins: " << _pointWinO;
+	Graphic::DrawRectangle(75, 11, 15, 10);
+	Common::GotoXY(78, 20); std::cout << "Moves: " << _countO;
+	Common::GotoXY(95, 20); std::cout << "Wins: " << _pointWinO;
 	Common::Color(BLUE, WHITE);
 	Graphic::DrawAsciiO();
 }
@@ -383,8 +380,7 @@ bool Game::IsEndGame() {
 	return IsEndHorizontal() ||
 		IsEndVertical() ||
 		IsEndPrimeDiag() ||
-		IsEndSecondDiag() ||
-		(_size * _size == _countO + _countX);
+		IsEndSecondDiag();
 }
 
 
@@ -754,6 +750,26 @@ void Game::SaveGame() {
 	DrawBoard();
 }
 
+void Game::PauseGame() {
+	system("cls");
+	Common::Color(BLACK, WHITE);
+	Common::ShowConsoleCursor(false);
+
+
+
+	Graphic::PauseGame();
+
+
+	Common::Color(YELLOW, WHITE);
+	Graphic::DrawRectangle(43, 18, 13, 2);
+	Common::GotoXY(45, 19); std::cout << "PRESS ENTER TO CONTINUE";
+
+	while (Common::GetEvent() != 5) {
+	}
+
+	DrawBoard();
+}
+
 void Game::WinLoseResult() {
 	_isGameRunning = false;
 	system("cls");
@@ -762,8 +778,14 @@ void Game::WinLoseResult() {
 
 	if (_size * _size == _countO + _countX) {
 		Graphic::DrawGameAscii();
+		Common::Color(YELLOW, WHITE);
+		Graphic::DrawRectangle(43, 18, 13, 2);
+		Common::GotoXY(45, 19); std::cout << "PRESS ENTER TO CONTINUE";
+
+		while (Common::GetEvent() != 5) {
+		}
 	}
-	else {
+	else if (IsEndGame()) {
 		if (!_turnX) {
 			Graphic::XWinGameAscii();
 			_pointWinX++;
@@ -772,13 +794,14 @@ void Game::WinLoseResult() {
 			Graphic::OWinGameAscii();
 			_pointWinO++;
 		}
-	}
-	Common::Color(YELLOW, WHITE);
-	Graphic::DrawRectangle(43, 18, 13, 2);
-	Common::GotoXY(45, 19); std::cout << "PRESS ENTER TO CONTINUE";
+		Common::Color(YELLOW, WHITE);
+		Graphic::DrawRectangle(43, 18, 13, 2);
+		Common::GotoXY(45, 19); std::cout << "PRESS ENTER TO CONTINUE";
 
-	while (Common::GetEvent() != 5) {
+		while (Common::GetEvent() != 5) {
+		}
 	}
+
 }
 
 void Game::DrawBoard() {

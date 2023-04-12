@@ -33,6 +33,8 @@ int Common::GetEvent() {
 			return 7;
 		else if (ch == 'M' || ch == 'm')			  //M
 			return 8;
+		else if (ch == 'P' || ch == 'p')			  //M
+			return 9;
 		else
 			return 0;
 	}

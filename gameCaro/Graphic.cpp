@@ -20,7 +20,7 @@ void Graphic::DrawTitle() {
 void Graphic::HelpBox() {
 	Common::ShowConsoleCursor(false);
 	Common::Color(BLACK, WHITE);
-	DrawRectangle(75, 0, 15, 9);
+	DrawRectangle(75, 0, 15, 10);
 
 	Common::GotoXY(86, 1);
 	std::cout << "HELP BOX";
@@ -39,6 +39,8 @@ void Graphic::HelpBox() {
 	Common::GotoXY(77, 7);
 	std::cout << "L       : Save Game";
 	Common::GotoXY(77, 8);
+	std::cout << "P       : Pause Game";
+	Common::GotoXY(77, 9);
 	std::cout << "Esc     : Exit Game";
 
 	Common::GotoXY(76, 2);
@@ -58,24 +60,24 @@ void Graphic::HelpBox() {
 
 void Graphic::DrawAsciiX() {
 	Common::ShowConsoleCursor(false);
-	Common::GotoXY(84, 11); std::cout << "____    ____   ";
-	Common::GotoXY(84, 12); std::cout << "\\   \\  /   / ";
-	Common::GotoXY(84, 13); std::cout << " \\   \\/   /  ";
-	Common::GotoXY(84, 14); std::cout << "  \\      /    ";
-	Common::GotoXY(84, 15); std::cout << "  /      \\    ";
-	Common::GotoXY(84, 16); std::cout << " /   /\\   \\  ";
-	Common::GotoXY(84, 17); std::cout << "/___/  \\___\\ ";
+	Common::GotoXY(84, 12); std::cout << "____    ____   ";
+	Common::GotoXY(84, 13); std::cout << "\\   \\  /   / ";
+	Common::GotoXY(84, 14); std::cout << " \\   \\/   /  ";
+	Common::GotoXY(84, 15); std::cout << "  \\      /    ";
+	Common::GotoXY(84, 16); std::cout << "  /      \\    ";
+	Common::GotoXY(84, 17); std::cout << " /   /\\   \\  ";
+	Common::GotoXY(84, 18); std::cout << "/___/  \\___\\ ";
 }
 
 void Graphic::DrawAsciiO() {
 	Common::ShowConsoleCursor(false);
-	Common::GotoXY(84, 11); std::cout << " ___________";
-	Common::GotoXY(84, 12); std::cout << "|    ___    |";
-	Common::GotoXY(84, 13); std::cout << "|   |   |   |";
+	Common::GotoXY(84, 12); std::cout << " ___________";
+	Common::GotoXY(84, 13); std::cout << "|    ___    |";
 	Common::GotoXY(84, 14); std::cout << "|   |   |   |";
 	Common::GotoXY(84, 15); std::cout << "|   |   |   |";
-	Common::GotoXY(84, 16); std::cout << "|   |___|   |";
-	Common::GotoXY(84, 17); std::cout << "|___________|";
+	Common::GotoXY(84, 16); std::cout << "|   |   |   |";
+	Common::GotoXY(84, 17); std::cout << "|   |___|   |";
+	Common::GotoXY(84, 18); std::cout << "|___________|";
 }
 
 void Graphic::DrawRectangle(const int& posX, const int& posY, const int& width, const int& height) {
@@ -470,6 +472,31 @@ void Graphic::Help() {
 )"""";
 	std::cout << infor;
 	Common::GotoXY(38, 28);
+}
+
+void Graphic::PauseGame(){
+	Common::ShowConsoleCursor(false);
+	const char* XWin = R""""(
+
+
+
+
+
+
+
+
+                                    _______  _______  __   __  _______  _______   
+                                   |       ||   _   ||  | |  ||       ||       | 
+                                   |    _  ||  |_|  ||  | |  ||  _____||    ___| 
+                                   |   |_| ||       ||  |_|  || |_____ |   |___   
+                                   |    ___||       ||       ||_____  ||    ___|  
+                                   |   |    |   _   ||       | _____| ||   |___  
+                                   |___|    |__| |__||_______||_______||_______| 
+
+
+)"""";
+	std::cout << XWin;
+
 }
 
 void Graphic::DrawPlay(int icon, int square) {

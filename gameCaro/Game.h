@@ -52,6 +52,7 @@ struct Game {
 	void AskContinue();
 	void BotPlay();
 	void SaveGame();
+	void PauseGame();
 	void LoadGame();
 	void WinLoseResult();
 	void DrawBoard();
