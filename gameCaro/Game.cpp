@@ -496,9 +496,11 @@ bool Game::IsEndVertical() {
 	return false;
 }
 
+
 bool Game::IsEndPrimeDiag() {
 	int topDiag = 0, bottomDiag = 0;
 	int XO = 0;
+	int count = 0;
 	if (!_turnX) {
 		XO = 1;
 	}
@@ -508,6 +510,8 @@ bool Game::IsEndPrimeDiag() {
 
 	for (int i = 0; i <= _pointRow; i++) {
 		if (XO == _board->CheckContain(_pointRow - i, _pointColumn - i)) {
+			winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow - i];
+			count++;
 			topDiag++;
 		}
 		else {
@@ -517,6 +521,8 @@ bool Game::IsEndPrimeDiag() {
 
 	for (int i = 1; i < _size - _pointRow; i++) {
 		if (XO == _board->CheckContain(_pointRow + i, _pointColumn + i)) {
+			winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow + i];
+			count++;
 			bottomDiag++;
 		}
 		else {
@@ -525,32 +531,6 @@ bool Game::IsEndPrimeDiag() {
 	}
 
 	if (bottomDiag + topDiag >= 5) {
-
-		int count = 0;
-		for (int i = 0; i <= _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointRow - i, _pointColumn - i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow - i];
-				count++;
-			}
-			else {
-				break;
-			}
-		}
-
-		for (int i = 1; i < _size - _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointRow + i, _pointColumn + i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow + i];
-				count++;
-			}
-			else {
-				break;
-			}
-		}
-		//for (int i = 0; i < 5; i++) {
-		//	Common::GotoXY(70, 25 + i);
-		//	cout << winPos[i].GetX() << "/" << winPos[i].GetY();
-		//}
-		////system("pause");
 		return true;
 	}
 	return false;
@@ -559,6 +539,7 @@ bool Game::IsEndPrimeDiag() {
 bool Game::IsEndSecondDiag() {
 	int topDiag = 0, bottomDiag = 0;
 	int XO = 0;
+	int count = 0;
 	if (!_turnX) {
 		XO = 1;
 	}
@@ -568,6 +549,8 @@ bool Game::IsEndSecondDiag() {
 
 	for (int i = 0; i <= _pointRow; i++) {
 		if (XO == _board->CheckContain(_pointRow - i, _pointColumn + i)) {
+			winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow - i];
+			count++;
 			topDiag++;
 		}
 		else {
@@ -577,6 +560,8 @@ bool Game::IsEndSecondDiag() {
 
 	for (int i = 1; i < _size - _pointRow; i++) {
 		if (XO == _board->CheckContain(_pointRow + i, _pointColumn - i)) {
+			winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow + i];
+			count++;
 			bottomDiag++;
 		}
 		else {
@@ -585,32 +570,10 @@ bool Game::IsEndSecondDiag() {
 	}
 
 	if (bottomDiag + topDiag >= 5) {
-		int count = 0;
-		for (int i = 0; i <= _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointRow - i, _pointColumn + i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow - i];
-				count++;
-			}
-			else {
-				break;
-			}
-		}
-
-		for (int i = 1; i < _size - _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointColumn + i, _pointColumn - i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn + i];
-				count++;
-			}
-			else {
-				break;
-			}
-		}
-
 		return true;
 	}
 	return false;
 }
-
 void Game::DrawInfoOfGame() {
 	Common::Color(BLACK, WHITE);
 	Graphic::HelpBox();
