@@ -387,6 +387,7 @@ bool Game::IsEndGame() {
 		(_size * _size == _countO + _countX);
 }
 
+
 bool Game::IsEndHorizontal() {
 	int left = 0, right = 0;
 	int XO = 0;

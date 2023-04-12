@@ -611,9 +611,8 @@ void Menu::Setting() {
 }
 
 void Menu::Help() {
-	Common::Color(BLACK, BLUE);
+	Common::Color(BLACK, WHITE);
 	system("cls");
-	system("color 30");
 	Common::SetConsole(20);
 	Graphic::Help();
 	system("pause");
