@@ -539,14 +539,18 @@ bool Game::IsEndPrimeDiag() {
 
 		for (int i = 1; i < _size - _pointRow; i++) {
 			if (XO == _board->CheckContain(_pointRow + i, _pointColumn + i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointRow + i];
+				winPos[count] = _board->_arrPoint[_pointColumn + i][_pointRow + i];
 				count++;
 			}
 			else {
 				break;
 			}
 		}
-
+		//for (int i = 0; i < 5; i++) {
+		//	Common::GotoXY(70, 25 + i);
+		//	cout << winPos[i].GetX() << "/" << winPos[i].GetY();
+		//}
+		////system("pause");
 		return true;
 	}
 	return false;
@@ -593,8 +597,8 @@ bool Game::IsEndSecondDiag() {
 		}
 
 		for (int i = 1; i < _size - _pointRow; i++) {
-			if (XO == _board->CheckContain(_pointColumn - i, _pointColumn - i)) {
-				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn - i];
+			if (XO == _board->CheckContain(_pointColumn + i, _pointColumn - i)) {
+				winPos[count] = _board->_arrPoint[_pointColumn - i][_pointColumn + i];
 				count++;
 			}
 			else {
