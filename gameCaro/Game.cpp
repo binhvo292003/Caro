@@ -785,7 +785,7 @@ void Game::WinLoseResult() {
 		while (Common::GetEvent() != 5) {
 		}
 	}
-	else if (IsEndGame()) {
+	else if (IsEndGame() || _isGameRunning == false) {
 		if (!_turnX) {
 			Graphic::XWinGameAscii();
 			_pointWinX++;
